@@ -30,6 +30,8 @@ case_real_z=display_z+case_pad_z;
 case_hump_x=case_logic_board_x + case_logic_board_overlap_x;
 case_hump_y=display_y+(2*case_pad_y);
 case_hump_z=17+case_pad_z;
+
+
  
     /*
      *  PCB Base
@@ -81,9 +83,10 @@ case_hump_z=17+case_pad_z;
             }
         }
         
+        /*
         //Logic Board Hump Cover Plate
         translate([-20,0,0]){
             roundedBox([case_hump_y, case_hump_x, 2],  5, true, $fn=100);
-        }
+        }*/
         
     } 
