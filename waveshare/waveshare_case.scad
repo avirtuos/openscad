@@ -72,7 +72,7 @@ case_hump_z=case_logic_board_z+case_pad_z;
        
         //Display Bracket
         color("red")
-        translate([-case_logic_board_x/2,0,case_real_z]){
+        translate([-case_logic_board_x/2,0,case_real_z - (case_real_z - display_bracket_z)/2]){
             difference(){
             roundedBox([display_bracket_x, 
                         display_bracket_y, 
