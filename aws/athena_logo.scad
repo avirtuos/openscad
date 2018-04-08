@@ -1,13 +1,13 @@
 
 logo_base_size=454;
-logo_base_height=logo_base_size*.25;
+logo_base_height=logo_base_size*.20;
 
 pillar_z_offset = 2;
 pillar_7_x_scale = .25;
 pillar_7_z_scale =  5;
 
 pillar_spacing = .1;
-pillar_vs_base_scaling_factor = .6;
+pillar_vs_base_scaling_factor = .65;
 
 normal_pillar_base = .15;
 wide_pillar_base = .25;
@@ -21,7 +21,6 @@ module analytics_pillar(base_ratio,
                         y_offset_ratio, 
                         z_offset_ratio,
                         support_angle){
-
 
     difference(){
         pillar_base = logo_base_size * base_ratio;
@@ -72,7 +71,7 @@ module analytics_pillar(base_ratio,
 
 
 
-color("orange")
+difference(){
     union(){
         //base
         linear_extrude(logo_base_height)
@@ -90,7 +89,7 @@ color("orange")
                          height_ratio = 4* pillar_vs_base_scaling_factor, 
                          x_offset_ratio = normal_pillar_base,
                          y_offset_ratio = 0, 
-                         z_offset_ratio = 1.5,
+                         z_offset_ratio = 1.3,
                          support_angle=44);
 
         //X-Pillars
@@ -98,21 +97,21 @@ color("orange")
                          height_ratio = 3* pillar_vs_base_scaling_factor, 
                          x_offset_ratio = 1- (2 * normal_pillar_base + 2* pillar_spacing), 
                          y_offset_ratio = 0, 
-                         z_offset_ratio = 1.5,
+                         z_offset_ratio = 1.3,
                          support_angle=60);
 
         analytics_pillar(base_ratio=normal_pillar_base, 
                          height_ratio = 4.5* pillar_vs_base_scaling_factor, 
                          x_offset_ratio = 1 - (normal_pillar_base + pillar_spacing),
                          y_offset_ratio = 0, 
-                         z_offset_ratio = 1.5,
+                         z_offset_ratio = 1.3,
                          support_angle=105);
 
         analytics_pillar(base_ratio=normal_pillar_base, 
                          height_ratio = 5 * pillar_vs_base_scaling_factor, 
                          x_offset_ratio = 1,
                          y_offset_ratio = 0, 
-                         z_offset_ratio = 1.5,
+                         z_offset_ratio = 1.3,
                          support_angle=135);
                          
                          
@@ -121,21 +120,21 @@ color("orange")
                          height_ratio = 2.3* pillar_vs_base_scaling_factor, 
                          x_offset_ratio = 0,
                          y_offset_ratio = 1- (2 * normal_pillar_base + 2* pillar_spacing), 
-                         z_offset_ratio = 1.5,
+                         z_offset_ratio = 1.3,
                          support_angle=15);
 
         analytics_pillar(base_ratio=normal_pillar_base, 
                          height_ratio = 3* pillar_vs_base_scaling_factor, 
                          x_offset_ratio = 0,
                          y_offset_ratio = 1 - (normal_pillar_base + pillar_spacing), 
-                         z_offset_ratio = 1.5,
+                         z_offset_ratio = 1.3,
                          support_angle=-25);
 
         analytics_pillar(base_ratio=normal_pillar_base, 
                          height_ratio = 1.3 * pillar_vs_base_scaling_factor, 
                          x_offset_ratio = 0,
                          y_offset_ratio = 1, 
-                         z_offset_ratio = 1.5,
+                         z_offset_ratio = 1.3,
                          support_angle=-45);
              
         difference(){
@@ -149,39 +148,14 @@ color("orange")
                                      ]
                     );
         }
-
     }
-    
-    text_z=5;
-color("white")
-rotate([90,0,0]){
-    translate([0,18,0])
-    cube([440,4,1]);
-
-    translate([0,20,0])
-    linear_extrude(height = text_z)
-    text("Athena", font = "Liberation Sans", size=80);
-            
-    translate([340,7,0])
-    resize([80,80])
-    linear_extrude(height = text_z)
-    import("/Users/virtuoso/Downloads/Athena_logo_pre_processed.dxf");
+/*
+    linear_extrude(1000)
+                polygon(points =[
+                                    [logo_base_size,logo_base_size],
+                                    [0,0],
+                                    [0,logo_base_size]
+                                 ]
+                );
+    */
 }
-
-translate([0,440,0])
-rotate([90,0,-90]){
-    union(){
-        translate([0,18,0])
-        cube([440,4,1]);
-
-        translate([0,20,0])
-        linear_extrude(height = text_z)
-        text("Athena", font = "Liberation Sans", size=80);
-              
-        translate([340,7,0])
-        resize([80,80])
-        linear_extrude(height = text_z)
-        import("/Users/virtuoso/Downloads/Athena_logo_pre_processed.dxf");
-    }
-}
-
