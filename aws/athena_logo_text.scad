@@ -20,8 +20,8 @@ analytics_pillar_support_height = 230;
 
 text_z=5;
 
-translate([0,8,0])
-cube([440,4,1]);
+translate([0,7,0])
+cube([440,4,text_z]);
 
 translate([0,10,0])
 linear_extrude(height = text_z)
