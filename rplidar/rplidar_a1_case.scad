@@ -19,7 +19,9 @@ rplidar_case_y=rplidar_y+rplidar_y_pad+(2*case_thickness);
 rplidar_case_z=rplidar_assembly_z + rplidar_assembly_z_pad + circuit_z + (2 * case_thickness) + case_cover_pad;
 rplidar_case_interior_z=rplidar_assembly_z + rplidar_assembly_z_pad + circuit_z + case_cover_pad;
 
-
+/*
+ *  Enclosure
+ */
 difference(){
     
     union(){
@@ -103,17 +105,19 @@ difference(){
         screw_plate(7,3,7, supported=false, rotate_z=0, $fn=100);
         
         color("brown")
-        translate([106.2,35,case_thickness+case_cover_pad])
-        screw_plate(7,3,7, supported=false, rotate_z=90, $fn=100);
+        translate([99.2,42,case_thickness+case_cover_pad])
+        screw_plate(7,3,4, supported=false, rotate_z=-90, $fn=100);
     }
     
-    translate([1,73,circuit_z+case_thickness+case_cover_pad])
+    translate([1,74,circuit_z+case_thickness+case_cover_pad])
     rotate([90,0,0])
-    scale([ 1.05, 1.05, .99]) 
+    scale([ 1.05, 0.99, 1.05]) 
     import("rplidar.stl", convexity=5);
 }
 
-
+/*
+ *      Cove Plate
+ */
 translate([-1*rplidar_x_pad/2,-1*rplidar_y_pad/2,0])
 translate([rplidar_case_x/2,rplidar_case_y/2,-(case_thickness)/2])
 translate([0,rplidar_case_y+5,rplidar_case_z])
@@ -168,4 +172,3 @@ difference(){
         screw_plate_hole(7,3,7, $fn=100);
     }
 }
-
