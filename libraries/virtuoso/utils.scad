@@ -1,5 +1,5 @@
-module screw_plate(screw_plate_size=7, screw_size=3, screw_plate_thickness=3, supported=true, rotate_z=0){
-  rotate([0, 0, rotate_z]){
+module screw_plate(screw_plate_size=7, screw_size=3, screw_plate_thickness=3, supported=true, rotate_x=0, rotate_y=0, rotate_z=0){
+  rotate([rotate_x, rotate_y, rotate_z]){
     if(supported){
         difference(){
             //base_screw_hole

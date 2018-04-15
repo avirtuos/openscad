@@ -15,9 +15,9 @@ case_pad_x=3;
 case_pad_y=3;
 case_pad_z=1;
 
-case_logic_board_x=30;
-case_logic_board_overlap_x=30;
-case_logic_board_z=17;
+case_logic_board_x=40;
+case_logic_board_overlap_x=20;
+case_logic_board_z=25;
 logic_bracket_pad=2;
 
 display_view_x=164.5;
@@ -42,7 +42,7 @@ display_real_y = display_view_y+ display_view_y_top_offset + display_view_y_bott
 
 display_bracket_x = case_real_x - case_logic_board_x;
 display_bracket_y = case_real_y;
-display_bracket_z = 4;
+display_bracket_z = 10;
 
 case_hump_x=case_logic_board_x + case_logic_board_overlap_x + display_view_x_left_offset + display_view_x_left_offset;
 case_hump_y=case_real_y;
@@ -72,16 +72,17 @@ case_hump_z=case_logic_board_z+case_pad_z;
         }
         
         //Display Fasteners & Cover Screw Plates
-        translate([-(case_real_x)/2 + 3,-(case_real_y)/2 + display_bracket_y*.25, case_real_z/2 + display_bracket_z - 1])
+        fastener_z=3;
+        translate([-(case_real_x)/2 + 3,-(case_real_y)/2 + display_bracket_y*.25, case_real_z/2 + fastener_z])
         screw_plate(5,1,1, $fn=100);
         
-        translate([-(case_real_x)/2 + 3,-(case_real_y)/2 + display_bracket_y*.75, case_real_z/2 + display_bracket_z - 1])
+        translate([-(case_real_x)/2 + 3,-(case_real_y)/2 + display_bracket_y*.75, case_real_z/2 + fastener_z])
         screw_plate(5,1,1, $fn=100);
         
-        translate([-(case_real_x)/2 + display_bracket_x*.25, -(case_real_y)/2 + 3, case_real_z/2 + display_bracket_z - 1])
+        translate([-(case_real_x)/2 + display_bracket_x*.25, -(case_real_y)/2 + 3, case_real_z/2 + fastener_z])
         screw_plate(5,1,1, $fn=100);
         
-        translate([-(case_real_x)/2 + display_bracket_x*.75, -(case_real_y)/2 + 3, case_real_z/2 + display_bracket_z - 1])
+        translate([-(case_real_x)/2 + display_bracket_x*.75, -(case_real_y)/2 + 3, case_real_z/2 + fastener_z])
         screw_plate(5,1,1, $fn=100);
 
         //Display Bracket
@@ -94,18 +95,25 @@ case_hump_z=case_logic_board_z+case_pad_z;
                             5, true, $fn=100);
                 
                 translate([case_pad_x-case_real_x/2,case_pad_y-(case_real_y)/2,0])
-                cube([display_real_x,display_real_y,7]);
+                cube([display_real_x,display_real_y,display_bracket_z+3]);
+                
+                translate([(case_real_x-case_hump_x)/2,0,(case_real_z+case_hump_z)/2+7])
+                roundedBox([case_hump_x-logic_bracket_pad, 
+                                case_hump_y-logic_bracket_pad, 
+                                case_hump_z+10],  5, true, $fn=100);
             }
                  
+        translate([-case_real_x/2+case_pad_x+5,0,display_bracket_z+case_pad_z/2])  screw_plate(5,3,5,supported=false, rotate_y=180, rotate_z=90, $fn=100);
+             
         //Logic Board Hump
         color("green")
         translate([(case_real_x-case_hump_x)/2,0,(case_real_z+case_hump_z)/2]){
             
             if(!isDraft){
-                translate([case_logic_board_overlap_x-7,case_hump_y/2-3-logic_bracket_pad,case_hump_z/2-2])  screw_plate(5,3,2, $fn=100);
-                translate([case_logic_board_overlap_x-7,-case_hump_y/2+logic_bracket_pad/2,case_hump_z/2-2])  screw_plate(5,3,2, $fn=100);
-                translate([-case_logic_board_overlap_x,case_hump_y/2-3-logic_bracket_pad,case_hump_z/2-2])  screw_plate(5,3,2, $fn=100);
-                translate([-case_logic_board_overlap_x,-case_hump_y/2+logic_bracket_pad/2,case_hump_z/2-2])  screw_plate(5,3,2, $fn=100);
+                translate([case_logic_board_overlap_x-7,case_hump_y/2-3-logic_bracket_pad,case_hump_z/2])  screw_plate(5,3,5,supported=false, rotate_y=180, $fn=100);
+                translate([case_logic_board_overlap_x-7,-case_hump_y/2+logic_bracket_pad/2,case_hump_z/2])  screw_plate(5,3,5,supported=false, rotate_y=180, $fn=100);
+                translate([-case_logic_board_overlap_x,case_hump_y/2-3-logic_bracket_pad,case_hump_z/2])  screw_plate(5,3,5,supported=false, rotate_y=180, $fn=100);
+                translate([-case_logic_board_overlap_x,-case_hump_y/2+logic_bracket_pad/2,case_hump_z/2])  screw_plate(5,3,5,supported=false, rotate_y=180, $fn=100);
             }
             difference(){
                 roundedBox([case_hump_x, case_hump_y, case_hump_z],  5, true, $fn=100);
