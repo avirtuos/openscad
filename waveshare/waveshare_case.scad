@@ -111,9 +111,9 @@ case_hump_z=case_logic_board_z+case_pad_z;
             
             if(!isDraft){
                 translate([case_logic_board_overlap_x-7,case_hump_y/2-3-logic_bracket_pad,case_hump_z/2])  screw_plate(5,3,5,supported=false, rotate_y=180, $fn=100);
-                translate([case_logic_board_overlap_x-7,-case_hump_y/2+logic_bracket_pad/2,case_hump_z/2])  screw_plate(5,3,5,supported=false, rotate_y=180, $fn=100);
+                translate([case_logic_board_overlap_x-7,-case_hump_y/2+logic_bracket_pad/2+5,case_hump_z/2])  screw_plate(5,3,5,supported=false, rotate_y=180, rotate_z=180, $fn=100);
                 translate([-case_logic_board_overlap_x,case_hump_y/2-3-logic_bracket_pad,case_hump_z/2])  screw_plate(5,3,5,supported=false, rotate_y=180, $fn=100);
-                translate([-case_logic_board_overlap_x,-case_hump_y/2+logic_bracket_pad/2,case_hump_z/2])  screw_plate(5,3,5,supported=false, rotate_y=180, $fn=100);
+                translate([-case_logic_board_overlap_x,-case_hump_y/2+logic_bracket_pad/2+5,case_hump_z/2])  screw_plate(5,3,5,supported=false, rotate_y=180, rotate_z=180, $fn=100);
             }
             difference(){
                 roundedBox([case_hump_x, case_hump_y, case_hump_z],  5, true, $fn=100);
