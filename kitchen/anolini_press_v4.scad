@@ -49,7 +49,7 @@ module single_press(){
             
             translate([press_size/2,press_size/2,-(press_height*20)+170])
             color("red")
-            cylinder(h = press_height*20, r1 = anolini_radius+5, r2 = anolini_radius-press_seam, center = false);
+            #cylinder(h = press_height*20, r1 = anolini_radius+5, r2 = anolini_radius-press_seam, center = false);
 
 /*
             color("cyan")
