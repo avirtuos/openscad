@@ -11,33 +11,62 @@ ravioli_cut_size=1.2;
 revioli_seem_size=(25.4*.25);
 ravioli_seem_ridge_width=5.55625;
 ravioli_seem_ridge_depth=2.4;
+tab_size=1.5;
+rows = 4;
 
 revioli_stuffing_size=ravioli_size-(2*revioli_seem_size)-(2*ravioli_cut_size);
 $fn=100;
 
 union(){
-    for (i = [0:4]) {
+    for (i = [0:rows]) {
         translate([0,(ravioli_size-ravioli_cut_size)*i, 0]){
-            single_press();
-            translate([ravioli_size-ravioli_cut_size,0,0])
-            single_press();
+            if(i == 0){
+                single_press(10,10);
+                translate([ravioli_size-ravioli_cut_size,0,0])
+                single_press(-10, 10);
+            } else if (i == rows){
+                single_press(10,-10);
+                translate([ravioli_size-ravioli_cut_size,0,0])
+                single_press(-10, -10);
+            } else {
+                single_press(10,-1);
+                translate([ravioli_size-ravioli_cut_size,0,0])
+                single_press(-10, -1);
+            }
         }
     }
 }
 
-module single_press(){
+
+module single_press(x_shift=-1, y_shift=-1){
     difference(){
         union(){
             color("green")
             cube([ravioli_size,ravioli_size,press_height-dough_thickness/2]);
             color("white")
-            translate([ravioli_cut_size/3,ravioli_cut_size/3,press_height-(dough_thickness/2)]){
-                difference(){
-                    cube([ravioli_size-(ravioli_cut_size*2/3),ravioli_size-(ravioli_cut_size*2/3),dough_thickness/2]);
-                    translate([ravioli_cut_size*1/3,ravioli_cut_size*1/3,-1])
-                        color("red")
-                    cube([ravioli_size-(ravioli_cut_size*4/3),ravioli_size-(ravioli_cut_size*4/3),3]);
+            translate([ravioli_cut_size*.25,ravioli_cut_size*.25,press_height-(dough_thickness/2)]){
+            difference(){
+                cube([ravioli_size-(ravioli_cut_size*.6),ravioli_size-(ravioli_cut_size*.6),dough_thickness/2]);
+                translate([ravioli_cut_size*.4,ravioli_cut_size*.4,-1])
+                    color("red")
+                    cube([ravioli_size-(ravioli_cut_size*1.4),ravioli_size-(ravioli_cut_size*1.4),3]);
                 }
+            }
+        }
+        
+        if (tab_size > 0 ){
+            translate([ravioli_cut_size*.25,ravioli_cut_size*.25,press_height-(dough_thickness/2)]){
+                    translate([ravioli_size*.25-(tab_size*.5),y_shift,-tab_size*.33])
+                    cube([tab_size*2,ravioli_size+2,tab_size]);
+                    
+                    translate([ravioli_size*.75-(tab_size*.5),y_shift,-tab_size*.33])
+                    cube([tab_size*2,ravioli_size+2,tab_size]);
+                    
+                    translate([x_shift, ravioli_size*.25-(tab_size*.5),-(tab_size*.33)])
+                    cube([ravioli_size+2,tab_size*2,tab_size]);
+                    
+                    translate([x_shift, ravioli_size*.75-(tab_size*.5),-(tab_size*.33)])
+                    cube([ravioli_size+2,tab_size*2,tab_size]);
             }
         }
         translate([ravioli_cut_size,ravioli_cut_size,press_height-dough_thickness])
@@ -72,7 +101,8 @@ module single_press(){
         translate([ravioli_size/6,ravioli_size/2,-press_height*.3])
         difference(){
             color("red")
-            sphere(ravioli_size*.4); 
+            scale([1, .8, 1])
+            sphere(ravioli_size*.42); 
             //translate([0,-ravioli_size/2,-ravioli_size/2])
             //cube([ravioli_size,ravioli_size,ravioli_size]);
         }
@@ -81,7 +111,8 @@ module single_press(){
         translate([-ravioli_size*5/6,ravioli_size/2,press_height*.3])
         difference(){
             color("red")
-            sphere(ravioli_size*.4); 
+            scale([1, .8, 1])
+            sphere(ravioli_size*.42); 
             //translate([0,-ravioli_size/2,-ravioli_size/2])
             //cube([ravioli_size,ravioli_size,ravioli_size]);
         }
@@ -90,7 +121,8 @@ module single_press(){
         translate([-ravioli_size*5/6,-ravioli_size/2,press_height*.3])
         difference(){
             color("red")
-            sphere(ravioli_size*.4); 
+            scale([1, .8, 1])
+            sphere(ravioli_size*.42); 
             //translate([0,-ravioli_size/2,-ravioli_size/2])
             //cube([ravioli_size,ravioli_size,ravioli_size]);
         }
@@ -99,7 +131,8 @@ module single_press(){
         translate([ravioli_size/6,-ravioli_size/2,-press_height*.3])
         difference(){
             color("red")
-            sphere(ravioli_size*.4); 
+            scale([1, .8, 1])
+            sphere(ravioli_size*.42); 
             //translate([0,-ravioli_size/2,-ravioli_size/2])
             //cube([ravioli_size,ravioli_size,ravioli_size]);
         }
