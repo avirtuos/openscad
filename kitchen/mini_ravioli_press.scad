@@ -4,20 +4,21 @@ use <MCAD/boxes.scad>
 dough_thickness=2;
 press_height=25.4*.6;
 //This is the overall size of the entire press for single ravioli
-ravioli_size=25.4*1.875;
+ravioli_size=25.4*1.375;
 //size of the cutting ridge around the outside of each ravioli
 ravioli_cut_size=1.2;
 //size of the seem which closes the ravioli and holds them together
-revioli_seem_size=(25.4*.20);
+revioli_seem_size=(25.4*.16);
 ravioli_seem_ridge_width=5.55625;
 ravioli_seem_ridge_depth=2.4;
 tab_size=1.5;
-rows = 4;
+rows =6;
+cols = 2;
 revioli_stuffing_size=ravioli_size-(2*revioli_seem_size)-(2*ravioli_cut_size);
 $fn=50;
 
-magnet_r=4.2;
-magnet_d=3.3;
+magnet_r=3.2;
+magnet_d=3.2;
 
 
 translate([0,0,25])
@@ -25,11 +26,13 @@ difference(){
    union(){
         for (i = [0:rows]) {
             translate([-1,-1 + (ravioli_size*i),press_height])
-            cube([ravioli_size*2+2,ravioli_size+2,1]);
+            cube([ravioli_size*3+2,ravioli_size+2,1]);
             translate([ravioli_size/2,(ravioli_size/2 ) + (ravioli_size*i), ravioli_size*.5]){
-                sphere(ravioli_size*.38);
+                sphere(ravioli_size*.32);
                 translate([ravioli_size-ravioli_cut_size,0,0])
-                sphere(ravioli_size*.38);
+                sphere(ravioli_size*.32);
+                translate([(ravioli_size-ravioli_cut_size)*2,0,0])
+                sphere(ravioli_size*.32);
             }
         }
     }
@@ -37,16 +40,17 @@ difference(){
        union(){
         for (i = [0:rows]) {
             translate([0,ravioli_size*i,press_height+1])
-            cube([ravioli_size*2,ravioli_size,press_height*2]);
+            cube([ravioli_size*3,ravioli_size,press_height*2]);
             translate([ravioli_size/2,(ravioli_size/2 ) + (ravioli_size*i), ravioli_size*.5]){
-                sphere(ravioli_size*.36);
+                sphere(ravioli_size*.30);
                 translate([ravioli_size-ravioli_cut_size,0,0])
-                sphere(ravioli_size*.36);
+                sphere(ravioli_size*.30);
+                translate([(ravioli_size-ravioli_cut_size)*2,0,0])
+                sphere(ravioli_size*.30);
             }
         }
     }
 }
-
 
 difference(){
     union(){
@@ -55,53 +59,49 @@ difference(){
                 if(i == 0){
                     single_press(10,10);
                     translate([ravioli_size-ravioli_cut_size,0,0])
+                    single_press(-1, 10);
+                    translate([(ravioli_size-ravioli_cut_size)*2,0,0])
                     single_press(-10, 10);
                 } else if (i == rows){
                     single_press(10,-10);
                     translate([ravioli_size-ravioli_cut_size,0,0])
+                    single_press(-1, -10);
+                    translate([(ravioli_size-ravioli_cut_size)*2,0,0])
                     single_press(-10, -10);
                 } else {
                     single_press(10,-1);
                     translate([ravioli_size-ravioli_cut_size,0,0])
+                    single_press(-1, -1);
+                    translate([(ravioli_size-ravioli_cut_size)*2,0,0])
                     single_press(-10, -1);
                 }
             }
         }
     }
     
-    translate([magnet_r*1.35,magnet_d-.1,press_height-(magnet_r*1.8)])
-    rotate([90,0,0])
-    cylinder(r1=magnet_r,r2=magnet_r,h=magnet_d);
+        for(i =[0:cols]){
+            offset = ravioli_size-1;
+            color("red"){
+            translate([(offset*i)+magnet_r+1.7,magnet_d-.1,press_height-(magnet_r*2.1)])
+            rotate([90,0,0])
+            #cylinder(r1=magnet_r,r2=magnet_r,h=magnet_d);
 
-    translate([ravioli_size-magnet_r*1.35,magnet_d-.1,press_height-(magnet_r*1.8)])
-    rotate([90,0,0])
-    cylinder(r1=magnet_r,r2=magnet_r,h=magnet_d);
+            translate([(offset*(i+1))-magnet_r-1.7,magnet_d-.1,press_height-(magnet_r*2.1)])
+            rotate([90,0,0])
+            #cylinder(r1=magnet_r,r2=magnet_r,h=magnet_d);
+            }
+            
+            color("blue"){
+            magnet_y_offset=((rows+1)*(ravioli_size+.1)) -(rows*1.30);
+            translate([(offset*i)+magnet_r+1.5,magnet_y_offset,press_height-(magnet_r*2.1)])
+            rotate([90,0,0])
+            #cylinder(r1=magnet_r,r2=magnet_r,h=magnet_d);
 
-    translate([ravioli_size+magnet_r*1.1,magnet_d-.1,press_height-(magnet_r*1.8)])
-    rotate([90,0,0])
-    cylinder(r1=magnet_r,r2=magnet_r,h=magnet_d);
-
-    translate([(ravioli_size*2)-magnet_r*1.6,magnet_d-.1,press_height-(magnet_r*1.8)])
-    rotate([90,0,0])
-    cylinder(r1=magnet_r,r2=magnet_r,h=magnet_d);
-    
-    
-    magnet_y_offset=((rows+1)*(ravioli_size+.1)) -(rows*1.3);
-    translate([magnet_r*1.35,magnet_y_offset,press_height-(magnet_r*1.8)])
-    rotate([90,0,0])
-    cylinder(r1=magnet_r,r2=magnet_r,h=magnet_d);
-
-    translate([ravioli_size-magnet_r*1.35,magnet_y_offset,press_height-(magnet_r*1.8)])
-    rotate([90,0,0])
-    cylinder(r1=magnet_r,r2=magnet_r,h=magnet_d);
-
-    translate([ravioli_size+magnet_r*1.1,magnet_y_offset,press_height-(magnet_r*1.8)])
-    rotate([90,0,0])
-    cylinder(r1=magnet_r,r2=magnet_r,h=magnet_d);
-
-    translate([(ravioli_size*2)-magnet_r*1.6,magnet_y_offset,press_height-(magnet_r*1.8)])
-    rotate([90,0,0])
-    cylinder(r1=magnet_r,r2=magnet_r,h=magnet_d);
+            translate([(offset*(i+1))-magnet_r-.5,magnet_y_offset,press_height-(magnet_r*2.1)])
+            rotate([90,0,0])
+            #cylinder(r1=magnet_r,r2=magnet_r,h=magnet_d);
+                    }
+        }
 }
 
 module single_press(x_shift=-1, y_shift=-1){
@@ -145,30 +145,38 @@ module single_press(x_shift=-1, y_shift=-1){
         press_height*.7])
         roundedBox([revioli_stuffing_size, revioli_stuffing_size, press_height*2],  5, true, $fn=100);
 
-        //origin ridges
-        translate([ravioli_cut_size,ravioli_cut_size+.4,0])
-        seem_row([-90,0,-90]);
-        
-        //x-right ridges
-        translate([ravioli_size-ravioli_seem_ridge_width-(2*ravioli_cut_size)-1.2,
-        ravioli_cut_size+.4,0])
-        seem_row([-90,0,-90]);
-        
-        translate([ravioli_size,ravioli_cut_size,0])
-        rotate([0,0,90])
-        seem_row([-90,0,-90]);
-        
-        translate([ravioli_size,ravioli_size-(ravioli_seem_ridge_width*1.4)-ravioli_cut_size,0])
-        rotate([0,0,90])
-        seem_row([-90,0,-90]);
-        
-            
+        difference(){
+            union(){
+                //origin ridges
+                translate([ravioli_cut_size,ravioli_cut_size+.4,0])
+                seem_row([-90,0,-90]);
+                
+                //x-right ridges
+                translate([ravioli_size-ravioli_seem_ridge_width-(2*ravioli_cut_size)-1.2,
+                ravioli_cut_size+.4,0])
+                seem_row([-90,0,-90]);
+                
+                translate([ravioli_size,ravioli_cut_size,0])
+                rotate([0,0,90])
+                seem_row([-90,0,-90]);
+                
+                translate([ravioli_size,ravioli_size-(ravioli_seem_ridge_width*1.4)-ravioli_cut_size,0])
+                rotate([0,0,90])
+                seem_row([-90,0,-90]);
+            }
+            difference(){
+                cube([ravioli_size,ravioli_size,press_height-dough_thickness/2]);
+                trim=2.4;
+                translate([trim/2,trim/2,-1])
+                cube([ravioli_size-trim,ravioli_size-trim,press_height]);
+            }
+        }
             
         translate([ravioli_size/6,ravioli_size/2,-press_height*.55])
         difference(){
             color("red")
-            scale([1, .75, 1])
-            sphere(ravioli_size*.38); 
+            scale([1, .85, 1.05])
+            sphere(ravioli_size*.5); 
             //translate([0,-ravioli_size/2,-ravioli_size/2])
             //cube([ravioli_size,ravioli_size,ravioli_size]);
         }
@@ -177,8 +185,8 @@ module single_press(x_shift=-1, y_shift=-1){
         translate([-ravioli_size*5/6,ravioli_size/2,press_height*.55])
         difference(){
             color("red")
-            scale([1, .75, 1])
-            sphere(ravioli_size*.38); 
+            scale([1, .85, 1.05])
+            sphere(ravioli_size*.5); 
             //translate([0,-ravioli_size/2,-ravioli_size/2])
             //cube([ravioli_size,ravioli_size,ravioli_size]);
         }
@@ -187,8 +195,8 @@ module single_press(x_shift=-1, y_shift=-1){
         translate([-ravioli_size*5/6,-ravioli_size/2,press_height*.55])
         difference(){
             color("red")
-            scale([1, .75, 1])
-            sphere(ravioli_size*.38); 
+            scale([1, .85, 1.05])
+            sphere(ravioli_size*.5); 
             //translate([0,-ravioli_size/2,-ravioli_size/2])
             //cube([ravioli_size,ravioli_size,ravioli_size]);
         }
@@ -197,8 +205,8 @@ module single_press(x_shift=-1, y_shift=-1){
         translate([ravioli_size/6,-ravioli_size/2,-press_height*.55])
         difference(){
             color("red")
-            scale([1, .75, 1])
-            sphere(ravioli_size*.38); 
+            scale([1, .85, 1.05])
+            sphere(ravioli_size*.5); 
             //translate([0,-ravioli_size/2,-ravioli_size/2])
             //cube([ravioli_size,ravioli_size,ravioli_size]);
         }
@@ -225,7 +233,7 @@ count =  (length-1)/ravioli_seem_ridge_width;
                 depth=ravioli_seem_ridge_depth,
                 length = (ravioli_seem_ridge_width * 1.4),
                 position= [0,
-                           (ravioli_seem_ridge_width*i),
+                           (ravioli_seem_ridge_width*i - 1),
                            press_height-dough_thickness+.1],
                 rotation=rotation
         );

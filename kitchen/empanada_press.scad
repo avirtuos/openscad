@@ -3,7 +3,7 @@
 //1/8 dough
 //makes 2
 //The dough is typically 6inch in diameter + .25 overhang +  0.5 lost to filling depth
-dough_radius=25.4*2.95;
+dough_radius=25.4*2.83;
 press_seam_width=25.4*.25;
 press_seam_height=25.4*.125;
 press_cut_width=2;
