@@ -19,204 +19,173 @@ $fn=50;
 magnet_r=4.2;
 magnet_d=3.3;
 
+//1 for press only, 2 for mold only, 3+ for both
+parts=3;
 
-translate([0,0,25])
-difference(){
-   union(){
-        for (i = [0:rows]) {
-            translate([-1,-1 + (ravioli_size*i),press_height])
-            cube([ravioli_size*2+2,ravioli_size+2,1]);
-            translate([ravioli_size/2,(ravioli_size/2 ) + (ravioli_size*i), ravioli_size*.5]){
-                sphere(ravioli_size*.38);
-                translate([ravioli_size-ravioli_cut_size,0,0])
-                sphere(ravioli_size*.38);
-            }
-        }
-    }
-    
+
+if(parts == 2 || parts > 2){
+    translate([0,0,25])
+    difference(){
        union(){
-        for (i = [0:rows]) {
-            translate([0,ravioli_size*i,press_height+1])
-            cube([ravioli_size*2,ravioli_size,press_height*2]);
-            translate([ravioli_size/2,(ravioli_size/2 ) + (ravioli_size*i), ravioli_size*.5]){
-                sphere(ravioli_size*.36);
-                translate([ravioli_size-ravioli_cut_size,0,0])
-                sphere(ravioli_size*.36);
+            for (i = [0:rows]) {
+                translate([-1,-1 + (ravioli_size*i),press_height])
+                cube([ravioli_size*2+2,ravioli_size+2,1]);
+                translate([ravioli_size/2,(ravioli_size/2 ) + (ravioli_size*i), ravioli_size*.5]){
+                    sphere(ravioli_size*.38);
+                    translate([ravioli_size-ravioli_cut_size,0,0])
+                    sphere(ravioli_size*.38);
+                }
             }
         }
-    }
-}
-
-
-difference(){
-    union(){
-        for (i = [0:rows]) {
-            translate([0,(ravioli_size-ravioli_cut_size)*i, 0]){
-                if(i == 0){
-                    single_press(10,10);
+        
+           union(){
+            for (i = [0:rows]) {
+                translate([0,ravioli_size*i,press_height+1])
+                cube([ravioli_size*2,ravioli_size,press_height*2]);
+                translate([ravioli_size/2,(ravioli_size/2 ) + (ravioli_size*i), ravioli_size*.5]){
+                    sphere(ravioli_size*.36);
                     translate([ravioli_size-ravioli_cut_size,0,0])
-                    single_press(-10, 10);
-                } else if (i == rows){
-                    single_press(10,-10);
-                    translate([ravioli_size-ravioli_cut_size,0,0])
-                    single_press(-10, -10);
-                } else {
-                    single_press(10,-1);
-                    translate([ravioli_size-ravioli_cut_size,0,0])
-                    single_press(-10, -1);
+                    sphere(ravioli_size*.36);
                 }
             }
         }
     }
-    
-    translate([magnet_r*1.35,magnet_d-.1,press_height-(magnet_r*1.8)])
-    rotate([90,0,0])
-    cylinder(r1=magnet_r,r2=magnet_r,h=magnet_d);
-
-    translate([ravioli_size-magnet_r*1.35,magnet_d-.1,press_height-(magnet_r*1.8)])
-    rotate([90,0,0])
-    cylinder(r1=magnet_r,r2=magnet_r,h=magnet_d);
-
-    translate([ravioli_size+magnet_r*1.1,magnet_d-.1,press_height-(magnet_r*1.8)])
-    rotate([90,0,0])
-    cylinder(r1=magnet_r,r2=magnet_r,h=magnet_d);
-
-    translate([(ravioli_size*2)-magnet_r*1.6,magnet_d-.1,press_height-(magnet_r*1.8)])
-    rotate([90,0,0])
-    cylinder(r1=magnet_r,r2=magnet_r,h=magnet_d);
-    
-    
-    magnet_y_offset=((rows+1)*(ravioli_size+.1)) -(rows*1.3);
-    translate([magnet_r*1.35,magnet_y_offset,press_height-(magnet_r*1.8)])
-    rotate([90,0,0])
-    cylinder(r1=magnet_r,r2=magnet_r,h=magnet_d);
-
-    translate([ravioli_size-magnet_r*1.35,magnet_y_offset,press_height-(magnet_r*1.8)])
-    rotate([90,0,0])
-    cylinder(r1=magnet_r,r2=magnet_r,h=magnet_d);
-
-    translate([ravioli_size+magnet_r*1.1,magnet_y_offset,press_height-(magnet_r*1.8)])
-    rotate([90,0,0])
-    cylinder(r1=magnet_r,r2=magnet_r,h=magnet_d);
-
-    translate([(ravioli_size*2)-magnet_r*1.6,magnet_y_offset,press_height-(magnet_r*1.8)])
-    rotate([90,0,0])
-    cylinder(r1=magnet_r,r2=magnet_r,h=magnet_d);
 }
 
-module single_press(x_shift=-1, y_shift=-1){
+if(parts == 1 || parts > 2){
     difference(){
         union(){
-            color("green")
-            cube([ravioli_size,ravioli_size,press_height-dough_thickness/2]);
-            color("white")
-            translate([ravioli_cut_size*.25,ravioli_cut_size*.25,press_height-(dough_thickness/2)]){
-            difference(){
-                cube([ravioli_size-(ravioli_cut_size*.6),ravioli_size-(ravioli_cut_size*.6),dough_thickness/2]);
-                translate([ravioli_cut_size*.4,ravioli_cut_size*.4,-1])
-                    color("red")
-                    cube([ravioli_size-(ravioli_cut_size*1.4),ravioli_size-(ravioli_cut_size*1.4),3]);
+            for (i = [0:rows]) {
+                translate([0,(ravioli_size-ravioli_cut_size)*i, 0]){
+                    if(i == 0){
+                        single_press(10,10);
+                        translate([ravioli_size-ravioli_cut_size,0,0])
+                        single_press(-10, 10);
+                    } else if (i == rows){
+                        single_press(10,-10);
+                        translate([ravioli_size-ravioli_cut_size,0,0])
+                        single_press(-10, -10);
+                    } else {
+                        single_press(10,-1);
+                        translate([ravioli_size-ravioli_cut_size,0,0])
+                        single_press(-10, -1);
+                    }
                 }
             }
         }
         
-        if (tab_size > 0 ){
-            translate([ravioli_cut_size*.25,ravioli_cut_size*.25,press_height-(dough_thickness/2)]){
-                    translate([ravioli_size*.25-(tab_size*.5),y_shift,-tab_size*.33])
-                    cube([tab_size*2,ravioli_size+2,tab_size]);
-                    
-                    translate([ravioli_size*.75-(tab_size*.5),y_shift,-tab_size*.33])
-                    cube([tab_size*2,ravioli_size+2,tab_size]);
-                    
-                    translate([x_shift, ravioli_size*.25-(tab_size*.5),-(tab_size*.33)])
-                    cube([ravioli_size+2,tab_size*2,tab_size]);
-                    
-                    translate([x_shift, ravioli_size*.75-(tab_size*.5),-(tab_size*.33)])
-                    cube([ravioli_size+2,tab_size*2,tab_size]);
-            }
-        }
-        translate([ravioli_cut_size,ravioli_cut_size,press_height-dough_thickness])
-        color("red")
-        cube([ravioli_size-(2*ravioli_cut_size),ravioli_size-(2*ravioli_cut_size),dough_thickness+1]);
-        
-        color("blue")
-        translate([revioli_stuffing_size/2 +(ravioli_size-revioli_stuffing_size)/2,
-        revioli_stuffing_size/2 +(ravioli_size-revioli_stuffing_size)/2,
-        press_height*.7])
-        roundedBox([revioli_stuffing_size, revioli_stuffing_size, press_height*2],  5, true, $fn=100);
+        translate([magnet_r*1.7,magnet_d-.1,press_height-(magnet_r*2)])
+        rotate([90,0,0])
+        cylinder(r1=magnet_r,r2=magnet_r,h=magnet_d);
 
-        //origin ridges
-        translate([ravioli_cut_size,ravioli_cut_size+.4,0])
-        seem_row([-90,0,-90]);
-        
-        //x-right ridges
-        translate([ravioli_size-ravioli_seem_ridge_width-(2*ravioli_cut_size)-1.2,
-        ravioli_cut_size+.4,0])
-        seem_row([-90,0,-90]);
-        
-        translate([ravioli_size,ravioli_cut_size,0])
-        rotate([0,0,90])
-        seem_row([-90,0,-90]);
-        
-        translate([ravioli_size,ravioli_size-(ravioli_seem_ridge_width*1.4)-ravioli_cut_size,0])
-        rotate([0,0,90])
-        seem_row([-90,0,-90]);
-        
-            
-            
-        translate([ravioli_size/6,ravioli_size/2,-press_height*.55])
-        difference(){
-            color("red")
-            scale([1, .75, 1])
-            sphere(ravioli_size*.38); 
-            //translate([0,-ravioli_size/2,-ravioli_size/2])
-            //cube([ravioli_size,ravioli_size,ravioli_size]);
-        }
-        
-        rotate([0,180,0])
-        translate([-ravioli_size*5/6,ravioli_size/2,press_height*.55])
-        difference(){
-            color("red")
-            scale([1, .75, 1])
-            sphere(ravioli_size*.38); 
-            //translate([0,-ravioli_size/2,-ravioli_size/2])
-            //cube([ravioli_size,ravioli_size,ravioli_size]);
-        }
-        
-        rotate([0,180,90])
-        translate([-ravioli_size*5/6,-ravioli_size/2,press_height*.55])
-        difference(){
-            color("red")
-            scale([1, .75, 1])
-            sphere(ravioli_size*.38); 
-            //translate([0,-ravioli_size/2,-ravioli_size/2])
-            //cube([ravioli_size,ravioli_size,ravioli_size]);
-        }
-        
-        rotate([0,0,90])
-        translate([ravioli_size/6,-ravioli_size/2,-press_height*.55])
-        difference(){
-            color("red")
-            scale([1, .75, 1])
-            sphere(ravioli_size*.38); 
-            //translate([0,-ravioli_size/2,-ravioli_size/2])
-            //cube([ravioli_size,ravioli_size,ravioli_size]);
-        }
-        
-            /*
-        color("blue")
-        translate([2,24,4])
-         rotate([0,90,0])
-         roundedBox([12,35,100],  2, true, $fn=100);
+        translate([ravioli_size-magnet_r*1.6,magnet_d-.1,press_height-(magnet_r*2)])
+        rotate([90,0,0])
+        cylinder(r1=magnet_r,r2=magnet_r,h=magnet_d);
 
-        translate([24,25,4])
-         rotate([0,90,90])
-         roundedBox([12,35,100],  2, true, $fn=100);
-         */
+        translate([ravioli_size+magnet_r*1.2,magnet_d-.1,press_height-(magnet_r*2)])
+        rotate([90,0,0])
+        cylinder(r1=magnet_r,r2=magnet_r,h=magnet_d);
+
+        translate([(ravioli_size*2)-magnet_r*1.9,magnet_d-.1,press_height-(magnet_r*2)])
+        rotate([90,0,0])
+        cylinder(r1=magnet_r,r2=magnet_r,h=magnet_d);
+        
+        
+        magnet_y_offset=((rows+1)*(ravioli_size+.1)) -(rows*1.3);
+        translate([magnet_r*1.7,magnet_y_offset,press_height-(magnet_r*2)])
+        rotate([90,0,0])
+        cylinder(r1=magnet_r,r2=magnet_r,h=magnet_d);
+
+        translate([ravioli_size-magnet_r*1.6,magnet_y_offset,press_height-(magnet_r*2)])
+        rotate([90,0,0])
+        cylinder(r1=magnet_r,r2=magnet_r,h=magnet_d);
+
+        translate([ravioli_size+magnet_r*1.2,magnet_y_offset,press_height-(magnet_r*2)])
+        rotate([90,0,0])
+        cylinder(r1=magnet_r,r2=magnet_r,h=magnet_d);
+
+        translate([(ravioli_size*2)-magnet_r*1.9,magnet_y_offset,press_height-(magnet_r*2)])
+        rotate([90,0,0])
+        cylinder(r1=magnet_r,r2=magnet_r,h=magnet_d);
     }
+
 }
 
 
+    module single_press(x_shift=-1, y_shift=-1){
+        difference(){
+            union(){
+                color("green")
+                cube([ravioli_size,ravioli_size,press_height-dough_thickness/2]);
+                color("white")
+                translate([ravioli_cut_size*.25,ravioli_cut_size*.25,press_height-(dough_thickness/2)]){
+                difference(){
+                    cube([ravioli_size-(ravioli_cut_size*.6),ravioli_size-(ravioli_cut_size*.6),dough_thickness/2]);
+                    translate([ravioli_cut_size*.4,ravioli_cut_size*.4,-1])
+                        color("red")
+                        cube([ravioli_size-(ravioli_cut_size*1.4),ravioli_size-(ravioli_cut_size*1.4),3]);
+                    }
+                }
+            }
+            
+            if (tab_size > 0 ){
+                translate([ravioli_cut_size*.25,ravioli_cut_size*.25,press_height-(dough_thickness/2)]){
+                        translate([ravioli_size*.25-(tab_size*.5),y_shift,-tab_size*.33])
+                        cube([tab_size*2,ravioli_size+2,tab_size]);
+                        
+                        translate([ravioli_size*.75-(tab_size*.5),y_shift,-tab_size*.33])
+                        cube([tab_size*2,ravioli_size+2,tab_size]);
+                        
+                        translate([x_shift, ravioli_size*.25-(tab_size*.5),-(tab_size*.33)])
+                        cube([ravioli_size+2,tab_size*2,tab_size]);
+                        
+                        translate([x_shift, ravioli_size*.75-(tab_size*.5),-(tab_size*.33)])
+                        cube([ravioli_size+2,tab_size*2,tab_size]);
+                }
+            }
+            translate([ravioli_cut_size,ravioli_cut_size,press_height-dough_thickness])
+            color("red")
+            cube([ravioli_size-(2*ravioli_cut_size),ravioli_size-(2*ravioli_cut_size),dough_thickness+1]);
+            
+            color("blue")
+            translate([revioli_stuffing_size/2 +(ravioli_size-revioli_stuffing_size)/2,
+            revioli_stuffing_size/2 +(ravioli_size-revioli_stuffing_size)/2,
+            press_height*.7])
+            roundedBox([revioli_stuffing_size, revioli_stuffing_size, press_height*2],  5, true, $fn=100);
+
+            //origin ridges
+            translate([ravioli_cut_size,ravioli_cut_size+.4,0])
+            seem_row([-90,0,-90]);
+            
+            //x-right ridges
+            translate([ravioli_size-ravioli_seem_ridge_width-(2*ravioli_cut_size)-1.2,
+            ravioli_cut_size+.4,0])
+            seem_row([-90,0,-90]);
+            
+            translate([ravioli_size,ravioli_cut_size,0])
+            rotate([0,0,90])
+            seem_row([-90,0,-90]);
+            
+            translate([ravioli_size,ravioli_size-(ravioli_seem_ridge_width*1.4)-ravioli_cut_size,0])
+            rotate([0,0,90])
+            seem_row([-90,0,-90]);
+            
+
+            translate([ravioli_size*.5,-1,-4])
+            scale([1.05,1,1])
+            rotate([90,0,0])
+            linear_extrude(height = 100, center = true, convexity = 10, twist = 0)
+            circle((ravioli_size*.6)*.5,$fn=6);
+                
+            translate([-1,ravioli_size*.5,-4])
+            scale([1,1.5,1])
+            rotate([90,0,90])
+            linear_extrude(height = 100, center = true, convexity = 10, twist = 0)
+            circle((ravioli_size*.6)*.5,$fn=6);
+ 
+        }
+    }
+    
 module seem_row(rotation, length=ravioli_size){
 count =  (length-1)/ravioli_seem_ridge_width;
     for (i = [1:count]) {

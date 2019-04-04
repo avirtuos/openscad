@@ -12,48 +12,54 @@ $fn=50;
 magnet_r=3.2;
 magnet_d=3.2;
 
+moldSpacing = press_size-1;
+//1 for press only, 2 for mold only, 3+ for both
+parts=3;
 
-translate([0,0,25])
-difference(){
-   union(){
-        moldSpacing = press_size-1;
-        for (i = [0:rows]) {
-            translate([-1,-1 + (press_size*i),press_height])
-            color("green")
-            cube([press_size*3,press_size+2,1]);
-            translate([press_size/2,(press_size/2 ) + (moldSpacing*i), press_size*.5]){
-                sphereSize = press_size* .32;
-                scale([1,1,1.35])
-                sphere(sphereSize);
-                translate([moldSpacing,0,0])
-                scale([1,1,1.35])
-                sphere(sphereSize);
-                translate([(moldSpacing)*2,0,0])
-                scale([1,1,1.35])
-                sphere(sphereSize);
+
+if(parts == 2 || parts > 2){
+    translate([0,0,25])
+    difference(){
+       union(){
+            for (i = [0:rows]) {
+                translate([-1,-1 + (press_size*i),press_height])
+                color("green")
+                cube([press_size*3,press_size+2,1]);
+                translate([press_size/2,(press_size/2 ) + (moldSpacing*i), press_size*.5]){
+                    sphereSize = press_size* .32;
+                    scale([1,1,1.35])
+                    sphere(sphereSize);
+                    translate([moldSpacing,0,0])
+                    scale([1,1,1.35])
+                    sphere(sphereSize);
+                    translate([(moldSpacing)*2,0,0])
+                    scale([1,1,1.35])
+                    sphere(sphereSize);
+                }
             }
         }
-    }
-    
-       union(){
-        for (i = [0:rows]) {
-            translate([0,press_size*i,press_height+1])
-            cube([press_size*3,press_size,press_height*2]);
-            translate([press_size/2,(press_size/2 ) + (moldSpacing*i), press_size*.5]){
-                sphereSize = press_size* .30;
-                scale([1,1,1.35])
-                sphere(sphereSize);
-                translate([moldSpacing,0,0])
-                scale([1,1,1.35])
-                sphere(sphereSize);
-                translate([(moldSpacing)*2,0,0])
-                scale([1,1,1.35])
-                sphere(sphereSize);
+        
+           union(){
+            for (i = [0:rows]) {
+                translate([0,press_size*i,press_height+1])
+                cube([press_size*3,press_size,press_height*2]);
+                translate([press_size/2,(press_size/2 ) + (moldSpacing*i), press_size*.5]){
+                    sphereSize = press_size* .30;
+                    scale([1,1,1.35])
+                    sphere(sphereSize);
+                    translate([moldSpacing,0,0])
+                    scale([1,1,1.35])
+                    sphere(sphereSize);
+                    translate([(moldSpacing)*2,0,0])
+                    scale([1,1,1.35])
+                    sphere(sphereSize);
+                }
             }
         }
     }
 }
 
+if(parts == 1 || parts > 2){
 
 difference(){
 union(){
@@ -92,6 +98,7 @@ union(){
                     }
         }
     }
+}
 
 module single_press(){
     difference(){
@@ -118,40 +125,18 @@ module single_press(){
             difference(){
                 cube([press_size,press_size,press_height]);
                 
-                translate([press_size/4,press_size/2,-press_height*.13])
-                difference(){
-                    color("red")
-                    sphere(press_size*.4, $fn=100); 
-                    translate([0,-press_size/2,-press_size/2])
-                    cube([press_size,press_size,press_size]);
-                }
+                translate([anolini_radius*1.5,-1,-2])
+                scale([1.05,1,1])
+                rotate([90,0,0])
+                linear_extrude(height = 100, center = true, convexity = 10, twist = 0)
+                circle((anolini_radius*2)*.5,$fn=6);
+                    
+                translate([-1,anolini_radius*1.5,-2])
+                scale([1,1.2,1])
+                rotate([90,0,90])
+                linear_extrude(height = 100, center = true, convexity = 10, twist = 0)
+                circle((anolini_radius*2)*.5,$fn=6);
                 
-                rotate([0,180,0])
-                translate([-press_size*3/4,press_size/2,press_height*.13])
-                difference(){
-                    color("red")
-                    sphere(press_size*.4, $fn=100); 
-                    translate([0,-press_size/2,-press_size/2])
-                    cube([press_size,press_size,press_size]);
-                }
-                
-                rotate([0,180,90])
-                translate([-press_size*3/4,-press_size/2,press_height*.13])
-                difference(){
-                    color("red")
-                    sphere(press_size*.4, $fn=100); 
-                    translate([0,-press_size/2,-press_size/2])
-                    cube([press_size,press_size,press_size]);
-                }
-                
-                rotate([0,0,90])
-                translate([press_size/4,-press_size/2,-press_height*.13])
-                difference(){
-                    color("red")
-                    sphere(press_size*.4, $fn=100); 
-                    translate([0,-press_size/2,-press_size/2])
-                    cube([press_size,press_size,press_size]);
-                }
             }
         }
     
