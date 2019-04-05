@@ -17,8 +17,6 @@ cols = 2;
 revioli_stuffing_size=ravioli_size-(2*revioli_seem_size)-(2*ravioli_cut_size);
 $fn=50;
 
-magnet_r=3.2;
-magnet_d=3.2;
 parts=3;
 
 
@@ -58,6 +56,30 @@ if(parts == 2 || parts > 2){
 if(parts == 1 || parts > 2){
     difference(){
         union(){
+            color("green"){
+                //Connection Tab Male
+                translate([ravioli_size-.5,0,(press_height*.5)/2])
+                rotate([0,0,90])
+                difference(){
+                    linear_extrude(height = press_height*.5, center = true, convexity = 10, twist = 0)
+                    circle(5,$fn=3);
+                    translate([3,0,0])
+                    linear_extrude(height = press_height+2, center = true, convexity = 10, twist = 0)
+                    circle(5,$fn=3);
+                }
+
+                //Connection Tab Male
+                translate([(ravioli_size*2)-1.75,0,(press_height*.5)/2])
+                rotate([0,0,90])
+                difference(){
+                    linear_extrude(height = press_height*.5, center = true, convexity = 10, twist = 0)
+                    circle(5,$fn=3);
+                    translate([3,0,0])
+                    linear_extrude(height = press_height+2, center = true, convexity = 10, twist = 0)
+                    circle(5,$fn=3);
+                }
+            }
+            
             for (i = [0:rows]) {
                 translate([0,(ravioli_size-ravioli_cut_size)*i, 0]){
                     if(i == 0){
@@ -83,29 +105,29 @@ if(parts == 1 || parts > 2){
             }
         }
         
-            for(i =[0:cols]){
-                offset = ravioli_size-1;
-                color("red"){
-                translate([(offset*i)+magnet_r+1.7,magnet_d-.1,press_height-(magnet_r*2.1)])
-                rotate([90,0,0])
-                cylinder(r1=magnet_r,r2=magnet_r,h=magnet_d);
-
-                translate([(offset*(i+1))-magnet_r-1.7,magnet_d-.1,press_height-(magnet_r*2.1)])
-                rotate([90,0,0])
-                cylinder(r1=magnet_r,r2=magnet_r,h=magnet_d);
-                }
-                
-                color("blue"){
-                magnet_y_offset=((rows+1)*(ravioli_size+.1)) -(rows*1.30);
-                translate([(offset*i)+magnet_r+1.5,magnet_y_offset,press_height-(magnet_r*2.1)])
-                rotate([90,0,0])
-                cylinder(r1=magnet_r,r2=magnet_r,h=magnet_d);
-
-                translate([(offset*(i+1))-magnet_r-.5,magnet_y_offset,press_height-(magnet_r*2.1)])
-                rotate([90,0,0])
-                cylinder(r1=magnet_r,r2=magnet_r,h=magnet_d);
-                        }
+        color("red"){
+            //Connection Tab Female
+            translate([ravioli_size-.5,ravioli_size-.25 +((ravioli_size-1.199)*rows),.49+(press_height*.5)/2])
+            rotate([0,0,90])
+            #difference(){
+                linear_extrude(height = (press_height*.5)+1, center = true, convexity = 10, twist = 0)
+                circle(6,$fn=3);
+                translate([3.5,0,0])
+                linear_extrude(height = press_height+2, center = true, convexity = 10, twist = 0)
+                circle(6,$fn=3);
             }
+            
+            //Connection Tab Female
+            translate([(ravioli_size*2)-1.75,ravioli_size-.25 +((ravioli_size-1.199)*rows),.49+(press_height*.5)/2])
+            rotate([0,0,90])
+            #difference(){
+                linear_extrude(height = (press_height*.5)+1, center = true, convexity = 10, twist = 0)
+                circle(6,$fn=3);
+                translate([3.5,0,0])
+                linear_extrude(height = press_height+2, center = true, convexity = 10, twist = 0)
+                circle(6,$fn=3);
+            }
+        }
     }
 
 
@@ -190,7 +212,7 @@ if(parts == 1 || parts > 2){
             }
                 
             translate([ravioli_size*.5,-1,-2])
-            scale([1.05,1,1])
+            scale([.95,1,1])
             rotate([90,0,0])
             linear_extrude(height = 100, center = true, convexity = 10, twist = 0)
             circle((ravioli_size*.7)*.5,$fn=6);

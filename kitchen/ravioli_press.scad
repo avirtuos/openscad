@@ -16,8 +16,6 @@ rows = 4;
 revioli_stuffing_size=ravioli_size-(2*revioli_seem_size)-(2*ravioli_cut_size);
 $fn=50;
 
-magnet_r=4.2;
-magnet_d=3.3;
 
 //1 for press only, 2 for mold only, 3+ for both
 parts=3;
@@ -55,6 +53,16 @@ if(parts == 2 || parts > 2){
 if(parts == 1 || parts > 2){
     difference(){
         union(){
+            //Connection Tab Male
+            translate([ravioli_size-.5,0,(press_height*.5)/2])
+            rotate([0,0,90])
+            difference(){
+                linear_extrude(height = press_height*.5, center = true, convexity = 10, twist = 0)
+                circle(5,$fn=3);
+                translate([3,0,0])
+                linear_extrude(height = press_height+2, center = true, convexity = 10, twist = 0)
+                circle(5,$fn=3);
+            }
             for (i = [0:rows]) {
                 translate([0,(ravioli_size-ravioli_cut_size)*i, 0]){
                     if(i == 0){
@@ -73,42 +81,18 @@ if(parts == 1 || parts > 2){
                 }
             }
         }
-        
-        translate([magnet_r*1.7,magnet_d-.1,press_height-(magnet_r*2)])
-        rotate([90,0,0])
-        cylinder(r1=magnet_r,r2=magnet_r,h=magnet_d);
-
-        translate([ravioli_size-magnet_r*1.6,magnet_d-.1,press_height-(magnet_r*2)])
-        rotate([90,0,0])
-        cylinder(r1=magnet_r,r2=magnet_r,h=magnet_d);
-
-        translate([ravioli_size+magnet_r*1.2,magnet_d-.1,press_height-(magnet_r*2)])
-        rotate([90,0,0])
-        cylinder(r1=magnet_r,r2=magnet_r,h=magnet_d);
-
-        translate([(ravioli_size*2)-magnet_r*1.9,magnet_d-.1,press_height-(magnet_r*2)])
-        rotate([90,0,0])
-        cylinder(r1=magnet_r,r2=magnet_r,h=magnet_d);
-        
-        
-        magnet_y_offset=((rows+1)*(ravioli_size+.1)) -(rows*1.3);
-        translate([magnet_r*1.7,magnet_y_offset,press_height-(magnet_r*2)])
-        rotate([90,0,0])
-        cylinder(r1=magnet_r,r2=magnet_r,h=magnet_d);
-
-        translate([ravioli_size-magnet_r*1.6,magnet_y_offset,press_height-(magnet_r*2)])
-        rotate([90,0,0])
-        cylinder(r1=magnet_r,r2=magnet_r,h=magnet_d);
-
-        translate([ravioli_size+magnet_r*1.2,magnet_y_offset,press_height-(magnet_r*2)])
-        rotate([90,0,0])
-        cylinder(r1=magnet_r,r2=magnet_r,h=magnet_d);
-
-        translate([(ravioli_size*2)-magnet_r*1.9,magnet_y_offset,press_height-(magnet_r*2)])
-        rotate([90,0,0])
-        cylinder(r1=magnet_r,r2=magnet_r,h=magnet_d);
+        //Connection Tab Female
+        translate([ravioli_size-.5,ravioli_size-.25 +((ravioli_size-1.199)*rows),.49+(press_height*.5)/2])
+        rotate([0,0,90])
+        color("red")
+        #difference(){
+            linear_extrude(height = (press_height*.5)+1, center = true, convexity = 10, twist = 0)
+            circle(6,$fn=3);
+            translate([3.5,0,0])
+            linear_extrude(height = press_height+2, center = true, convexity = 10, twist = 0)
+            circle(6,$fn=3);
+        }
     }
-
 }
 
 
@@ -167,13 +151,13 @@ if(parts == 1 || parts > 2){
             
 
             translate([ravioli_size*.5,-1,-4])
-            scale([1.05,1,1])
+            scale([1.4,1,1])
             rotate([90,0,0])
             linear_extrude(height = 100, center = true, convexity = 10, twist = 0)
             circle((ravioli_size*.6)*.5,$fn=6);
                 
             translate([-1,ravioli_size*.5,-4])
-            scale([1,1.5,1])
+            scale([1,1.4,1])
             rotate([90,0,90])
             linear_extrude(height = 100, center = true, convexity = 10, twist = 0)
             circle((ravioli_size*.6)*.5,$fn=6);

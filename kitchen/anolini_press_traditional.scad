@@ -9,8 +9,6 @@ rows=6;
 cols=2;
 $fn=50;
 
-magnet_r=3.2;
-magnet_d=3.2;
 
 moldSpacing = press_size-1;
 //1 for press only, 2 for mold only, 3+ for both
@@ -45,13 +43,13 @@ if(parts == 2 || parts > 2){
                 cube([press_size*3,press_size,press_height*2]);
                 translate([press_size/2,(press_size/2 ) + (moldSpacing*i), press_size*.5]){
                     sphereSize = press_size* .30;
-                    scale([1,1,1.35])
+                    scale([1,1,1.33])
                     sphere(sphereSize);
                     translate([moldSpacing,0,0])
-                    scale([1,1,1.35])
+                    scale([1,1,1.33])
                     sphere(sphereSize);
                     translate([(moldSpacing)*2,0,0])
-                    scale([1,1,1.35])
+                    scale([1,1,1.33])
                     sphere(sphereSize);
                 }
             }
@@ -61,41 +59,65 @@ if(parts == 2 || parts > 2){
 
 if(parts == 1 || parts > 2){
 
-difference(){
-union(){
-    for (i = [0:rows]) {
-        translate([0,(press_size-1)*i, 0]){
-            for (i = [0:cols]) {
-                translate([i*(press_size-1),0,0])
-                single_press();
-            }
-        }
-    }
-}
+    difference(){
+        union(){
+            color("green"){
+                //Connection Tab Male
+                translate([press_size-.5,0,(press_height*.5)/2])
+                rotate([0,0,90])
+                difference(){
+                    linear_extrude(height = press_height*.5, center = true, convexity = 10, twist = 0)
+                    circle(5,$fn=3);
+                    translate([3,0,0])
+                    linear_extrude(height = press_height+2, center = true, convexity = 10, twist = 0)
+                    circle(5,$fn=3);
+                }
 
-
-        for(i =[0:cols]){
-            offset = press_size-1;
-            color("red"){
-            translate([(offset*i)+magnet_r+1.5,magnet_d-.1,press_height-(magnet_r*1.5)])
-            rotate([90,0,0])
-            cylinder(r1=magnet_r,r2=magnet_r,h=magnet_d);
-
-            translate([(offset*(i+1))-magnet_r-.5,magnet_d-.1,press_height-(magnet_r*1.5)])
-            rotate([90,0,0])
-            cylinder(r1=magnet_r,r2=magnet_r,h=magnet_d);
+                //Connection Tab Male
+                translate([(press_size*2)-1.75,0,(press_height*.5)/2])
+                rotate([0,0,90])
+                difference(){
+                    linear_extrude(height = press_height*.5, center = true, convexity = 10, twist = 0)
+                    circle(5,$fn=3);
+                    translate([3,0,0])
+                    linear_extrude(height = press_height+2, center = true, convexity = 10, twist = 0)
+                    circle(5,$fn=3);
+                }
             }
             
-                    color("blue"){
-            magnet_y_offset=((rows+1)*(press_size+.1)) -(rows*1.1);
-            translate([(offset*i)+magnet_r+1.5,magnet_y_offset,press_height-(magnet_r*1.5)])
-            rotate([90,0,2])
-            cylinder(r1=magnet_r,r2=magnet_r,h=magnet_d);
-
-            translate([(offset*(i+1))-magnet_r-.5,magnet_y_offset,press_height-(magnet_r*1.5)])
-            rotate([90,0,0])
-            cylinder(r1=magnet_r,r2=magnet_r,h=magnet_d);
+            for (i = [0:rows]) {
+                translate([0,(press_size-1)*i, 0]){
+                    for (i = [0:cols]) {
+                        translate([i*(press_size-1),0,0])
+                        single_press();
                     }
+                }
+            }
+        }
+
+
+        color("red"){
+            //Connection Tab Female
+            translate([press_size-.5,press_size-.25 +((press_size-1)*rows),.49+(press_height*.5)/2])
+            rotate([0,0,90])
+            difference(){
+                linear_extrude(height = (press_height*.5)+1, center = true, convexity = 10, twist = 0)
+                circle(6,$fn=3);
+                translate([3.5,0,0])
+                linear_extrude(height = press_height+2, center = true, convexity = 10, twist = 0)
+                circle(6,$fn=3);
+            }
+            
+            //Connection Tab Female
+            translate([(press_size*2)-1.75,press_size-.25 +((press_size-1)*rows),.49+(press_height*.5)/2])
+            rotate([0,0,90])
+            difference(){
+                linear_extrude(height = (press_height*.5)+1, center = true, convexity = 10, twist = 0)
+                circle(6,$fn=3);
+                translate([3.5,0,0])
+                linear_extrude(height = press_height+2, center = true, convexity = 10, twist = 0)
+                circle(6,$fn=3);
+            }
         }
     }
 }
@@ -126,25 +148,25 @@ module single_press(){
                 cube([press_size,press_size,press_height]);
                 
                 translate([anolini_radius*1.5,-1,-2])
-                scale([1.05,1,1])
+                scale([.95,1,1])
                 rotate([100,0,])
                 linear_extrude(height = 20, center = true, convexity = 15, twist = 0)
                 circle((anolini_radius*2)*.5,$fn=6);
                     
                 translate([anolini_radius*1.5,anolini_radius*3,-2])
-                scale([1.05,1,1])
+                scale([.95,1,1])
                 rotate([80,0,])
                 linear_extrude(height = 20, center = true, convexity = 15, twist = 0)
                 circle((anolini_radius*2)*.5,$fn=6);
                 
                 translate([-1, anolini_radius*1.5,-2])
-                scale([1.05,1.2,1])
+                scale([1,1.15,1])
                 rotate([80,0,90])
                 linear_extrude(height = 20, center = true, convexity = 15, twist = 0)
                 circle((anolini_radius*2)*.5,$fn=6);
                     
                 translate([anolini_radius*3, anolini_radius*1.5,-2])
-                scale([1.05,1.2,1])
+                scale([1,1.15,1])
                 rotate([100,0,90])
                 linear_extrude(height = 20, center = true, convexity = 15, twist = 0)
                 circle((anolini_radius*2)*.5,$fn=6);
