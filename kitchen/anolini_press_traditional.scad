@@ -128,25 +128,25 @@ module single_press(){
                 translate([anolini_radius*1.5,-1,-2])
                 scale([1.05,1,1])
                 rotate([100,0,])
-                linear_extrude(height = 15, center = true, convexity = 15, twist = 0)
+                linear_extrude(height = 20, center = true, convexity = 15, twist = 0)
                 circle((anolini_radius*2)*.5,$fn=6);
                     
                 translate([anolini_radius*1.5,anolini_radius*3,-2])
                 scale([1.05,1,1])
                 rotate([80,0,])
-                linear_extrude(height = 15, center = true, convexity = 15, twist = 0)
+                linear_extrude(height = 20, center = true, convexity = 15, twist = 0)
                 circle((anolini_radius*2)*.5,$fn=6);
                 
                 translate([-1, anolini_radius*1.5,-2])
-                scale([1.05,1,1])
+                scale([1.05,1.2,1])
                 rotate([80,0,90])
-                linear_extrude(height = 15, center = true, convexity = 15, twist = 0)
+                linear_extrude(height = 20, center = true, convexity = 15, twist = 0)
                 circle((anolini_radius*2)*.5,$fn=6);
                     
                 translate([anolini_radius*3, anolini_radius*1.5,-2])
-                scale([1.05,1,1])
+                scale([1.05,1.2,1])
                 rotate([100,0,90])
-                linear_extrude(height = 15, center = true, convexity = 15, twist = 0)
+                linear_extrude(height = 20, center = true, convexity = 15, twist = 0)
                 circle((anolini_radius*2)*.5,$fn=6);
                 
             }

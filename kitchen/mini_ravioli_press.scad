@@ -131,14 +131,9 @@ if(parts == 1 || parts > 2){
             union(){
                 color("green")
                 cube([ravioli_size,ravioli_size,press_height-dough_thickness/2]);
-                color("white")
-                translate([ravioli_cut_size*.25,ravioli_cut_size*.25,press_height-(dough_thickness/2)]){
-                difference(){
-                    cube([ravioli_size-(ravioli_cut_size*.6),ravioli_size-(ravioli_cut_size*.6),dough_thickness/2]);
-                    translate([ravioli_cut_size*.4,ravioli_cut_size*.4,-1])
-                        color("red")
-                        cube([ravioli_size-(ravioli_cut_size*1.4),ravioli_size-(ravioli_cut_size*1.4),3]);
-                    }
+                color("blue")
+                translate([0,0,press_height-(dough_thickness/2)]){
+                cube([ravioli_size,ravioli_size,dough_thickness/2]);
                 }
             }
             
