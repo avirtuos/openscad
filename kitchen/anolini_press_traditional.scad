@@ -89,7 +89,7 @@ union(){
                     color("blue"){
             magnet_y_offset=((rows+1)*(press_size+.1)) -(rows*1.1);
             translate([(offset*i)+magnet_r+1.5,magnet_y_offset,press_height-(magnet_r*1.5)])
-            rotate([90,0,0])
+            rotate([90,0,2])
             cylinder(r1=magnet_r,r2=magnet_r,h=magnet_d);
 
             translate([(offset*(i+1))-magnet_r-.5,magnet_y_offset,press_height-(magnet_r*1.5)])
@@ -127,14 +127,26 @@ module single_press(){
                 
                 translate([anolini_radius*1.5,-1,-2])
                 scale([1.05,1,1])
-                rotate([90,0,0])
-                linear_extrude(height = 100, center = true, convexity = 10, twist = 0)
+                rotate([100,0,])
+                linear_extrude(height = 15, center = true, convexity = 15, twist = 0)
                 circle((anolini_radius*2)*.5,$fn=6);
                     
-                translate([-1,anolini_radius*1.5,-2])
-                scale([1,1.2,1])
-                rotate([90,0,90])
-                linear_extrude(height = 100, center = true, convexity = 10, twist = 0)
+                translate([anolini_radius*1.5,anolini_radius*3,-2])
+                scale([1.05,1,1])
+                rotate([80,0,])
+                linear_extrude(height = 15, center = true, convexity = 15, twist = 0)
+                circle((anolini_radius*2)*.5,$fn=6);
+                
+                translate([-1, anolini_radius*1.5,-2])
+                scale([1.05,1,1])
+                rotate([80,0,90])
+                linear_extrude(height = 15, center = true, convexity = 15, twist = 0)
+                circle((anolini_radius*2)*.5,$fn=6);
+                    
+                translate([anolini_radius*3, anolini_radius*1.5,-2])
+                scale([1.05,1,1])
+                rotate([100,0,90])
+                linear_extrude(height = 15, center = true, convexity = 15, twist = 0)
                 circle((anolini_radius*2)*.5,$fn=6);
                 
             }
