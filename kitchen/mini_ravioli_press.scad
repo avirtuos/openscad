@@ -17,7 +17,7 @@ cols = 2;
 revioli_stuffing_size=ravioli_size-(2*revioli_seem_size)-(2*ravioli_cut_size);
 $fn=50;
 
-parts=3;
+parts=1;
 
 
 if(parts == 2 || parts > 2){
@@ -27,7 +27,7 @@ if(parts == 2 || parts > 2){
             for (i = [0:rows]) {
                 translate([-1,-1 + (ravioli_size*i),press_height])
                 cube([ravioli_size*3+2,ravioli_size+2,1]);
-                translate([ravioli_size/2,(ravioli_size/2 ) + (ravioli_size*i), ravioli_size*.5]){
+                translate([ravioli_size/2,(ravioli_size/2 ) + ((ravioli_size-1.199)*i), ravioli_size*.5]){
                     sphere(ravioli_size*.32);
                     translate([ravioli_size-ravioli_cut_size,0,0])
                     sphere(ravioli_size*.32);
@@ -41,7 +41,7 @@ if(parts == 2 || parts > 2){
             for (i = [0:rows]) {
                 translate([0,ravioli_size*i,press_height+1])
                 cube([ravioli_size*3,ravioli_size,press_height*2]);
-                translate([ravioli_size/2,(ravioli_size/2 ) + (ravioli_size*i), ravioli_size*.5]){
+                translate([ravioli_size/2,(ravioli_size/2 ) + ((ravioli_size-1.199)*i), ravioli_size*.5]){
                     sphere(ravioli_size*.30);
                     translate([ravioli_size-ravioli_cut_size,0,0])
                     sphere(ravioli_size*.30);
@@ -212,13 +212,13 @@ if(parts == 1 || parts > 2){
             }
                 
             translate([ravioli_size*.5,-1,-2])
-            scale([.95,1,1])
+            scale([.90,1,1])
             rotate([90,0,0])
             linear_extrude(height = 100, center = true, convexity = 10, twist = 0)
             circle((ravioli_size*.7)*.5,$fn=6);
             
             translate([-1,ravioli_size*.5,-2])
-            scale([1,1.2,1])
+            scale([1,1.1,1])
             rotate([90,0,90])
             linear_extrude(height = 100, center = true, convexity = 10, twist = 0)
             circle((ravioli_size*.7)*.5,$fn=6);

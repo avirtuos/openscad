@@ -28,7 +28,7 @@ if(parts == 2 || parts > 2){
             for (i = [0:rows]) {
                 translate([-1,-1 + (ravioli_size*i),press_height])
                 cube([ravioli_size*2+2,ravioli_size+2,1]);
-                translate([ravioli_size/2,(ravioli_size/2 ) + (ravioli_size*i), ravioli_size*.5]){
+                translate([ravioli_size/2,(ravioli_size/2 ) + ((ravioli_size-1.199)*i), ravioli_size*.5]){
                     sphere(ravioli_size*.38);
                     translate([ravioli_size-ravioli_cut_size,0,0])
                     sphere(ravioli_size*.38);
@@ -40,7 +40,7 @@ if(parts == 2 || parts > 2){
             for (i = [0:rows]) {
                 translate([0,ravioli_size*i,press_height+1])
                 cube([ravioli_size*2,ravioli_size,press_height*2]);
-                translate([ravioli_size/2,(ravioli_size/2 ) + (ravioli_size*i), ravioli_size*.5]){
+                translate([ravioli_size/2,(ravioli_size/2 ) + ((ravioli_size-1.199)*i), ravioli_size*.5]){
                     sphere(ravioli_size*.36);
                     translate([ravioli_size-ravioli_cut_size,0,0])
                     sphere(ravioli_size*.36);
