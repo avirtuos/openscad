@@ -39,7 +39,7 @@ difference(){
                             }
 
                             translate([0,0,-.1])
-                            cylinder(r1=dough_radius-6, r2=dough_radius-press_seam_width-press_cut_width, h=press_height-6);
+                            cylinder(r1=dough_radius-5, r2=dough_radius-press_seam_width-press_cut_width, h=press_height-6);
                          
                     }
             
@@ -47,7 +47,7 @@ difference(){
             for(i = [0:11]){
                 rotate([0,0,15 + 30*i])
                 translate([dough_radius/6,0,-.1]){
-                    scale([1,1,1.15])
+                    scale([1,1,1.1])
                     rotate([90,0,90])
                     linear_extrude(height = 1000, center = true, convexity = 10, twist = 0)
                     circle(14,$fn=6);
@@ -86,8 +86,11 @@ difference(){
                         cylinder(r1=dough_radius-4, r2=dough_radius-press_seam_width, h=press_height-10);           
                     }
                      
+                    translate([-press_cut_width/2,-dough_radius*.99,0])
+                    cube([press_cut_width,dough_radius*1.98,press_height]);
+                    
                     translate([-3,-dough_radius*.99,0])
-                    cube([6,dough_radius*1.98,press_height]);
+                    cube([6,dough_radius*1.98,10]);
                             
                     translate([press_seam_width,dough_radius*.965,press_height-9]){
                         triangle_points =[[-.4,0]
@@ -108,7 +111,7 @@ difference(){
                 
                 for(i = [-3:8]){
                     translate([-dough_radius/2,(dough_radius/2) * i +18,-.1]){
-                    scale([1,1,1.3])
+                    scale([1,1,1.2])
                     rotate([90,0,90])
                     linear_extrude(height = 100, center = true, convexity = 10, twist = 0)
                     circle(13,$fn=6);

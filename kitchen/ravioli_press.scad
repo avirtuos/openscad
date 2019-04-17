@@ -18,7 +18,7 @@ $fn=50;
 
 
 //1 for press only, 2 for mold only, 3+ for both
-parts=3;
+parts=1;
 
 
 if(parts == 2 || parts > 2){
@@ -126,6 +126,11 @@ if(parts == 1 || parts > 2){
             color("red")
             cube([ravioli_size-(2*ravioli_cut_size),ravioli_size-(2*ravioli_cut_size),dough_thickness+1]);
             
+            translate([ravioli_cut_size,ravioli_cut_size,press_height-dough_thickness-.3])
+            color("red")
+            cube([ravioli_size-(2*ravioli_cut_size),ravioli_size-(2*ravioli_cut_size),dough_thickness+1]);
+            
+            
             color("blue")
             translate([revioli_stuffing_size/2 +(ravioli_size-revioli_stuffing_size)/2,
             revioli_stuffing_size/2 +(ravioli_size-revioli_stuffing_size)/2,
@@ -150,16 +155,16 @@ if(parts == 1 || parts > 2){
             seem_row([-90,0,-90]);
             
 
-            translate([ravioli_size*.5,-1,-4])
-            scale([1.4,1,1])
+            translate([ravioli_size*.5,ravioli_size/2,-4])
+            scale([1.3,1,1])
             rotate([90,0,0])
-            linear_extrude(height = 100, center = true, convexity = 10, twist = 0)
+            linear_extrude(height = ravioli_size-5, center = true, convexity = 10, twist = 0)
             circle((ravioli_size*.6)*.5,$fn=6);
                 
-            translate([-1,ravioli_size*.5,-4])
-            scale([1,1.4,1])
+            translate([ravioli_size/2,ravioli_size*.5,-4])
+            scale([1,1.3,1])
             rotate([90,0,90])
-            linear_extrude(height = 100, center = true, convexity = 10, twist = 0)
+            linear_extrude(height = ravioli_size-5, center = true, convexity = 10, twist = 0)
             circle((ravioli_size*.6)*.5,$fn=6);
  
         }
