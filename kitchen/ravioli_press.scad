@@ -18,32 +18,48 @@ $fn=50;
 
 
 //1 for press only, 2 for mold only, 3+ for both
-parts=1;
+parts=2;
 
 
 if(parts == 2 || parts > 2){
-    translate([0,0,25])
-    difference(){
-       union(){
-            for (i = [0:rows]) {
-                translate([-1,-1 + (ravioli_size*i),press_height])
-                cube([ravioli_size*2+2,ravioli_size+2,1]);
-                translate([ravioli_size/2,(ravioli_size/2 ) + ((ravioli_size-1.199)*i), ravioli_size*.5]){
-                    sphere(ravioli_size*.38);
-                    translate([ravioli_size-ravioli_cut_size,0,0])
-                    sphere(ravioli_size*.38);
-                }
+    
+        translate([0,0,5])
+    union(){
+        for (i = [0:rows]) {
+            translate([-1,-1 + ((ravioli_size-1)*i),press_height+.2])
+            cube([ravioli_size*2+2,ravioli_size,.9]);
+            for(k = [0:(2*rows - 2)]){
+                translate([-1,-1 + ((ravioli_size/2 -.5)*(i+k)),press_height+1])
+                #cube([ravioli_size*2+2,1,1.8]);
+            }
+                    
+            for(j = [0:5]){
+                translate([-1 +(j*19.3),-1 + ((ravioli_size-.75)*i),press_height+1])
+                #cube([1, ravioli_size-1,1.8]);
             }
         }
-        
+        difference(){
            union(){
-            for (i = [0:rows]) {
-                translate([0,ravioli_size*i,press_height+1])
-                cube([ravioli_size*2,ravioli_size,press_height*2]);
-                translate([ravioli_size/2,(ravioli_size/2 ) + ((ravioli_size-1.199)*i), ravioli_size*.5]){
-                    sphere(ravioli_size*.36);
-                    translate([ravioli_size-ravioli_cut_size,0,0])
-                    sphere(ravioli_size*.36);
+                for (i = [0:rows]) {
+                    //translate([-1,-1 + (ravioli_size*i),press_height])
+                    //cube([ravioli_size*2+2,ravioli_size+2,1]);
+                    translate([ravioli_size/2,(ravioli_size/2 ) + ((ravioli_size-1.199)*i), ravioli_size*.5]){
+                        sphere(ravioli_size*.38);
+                        translate([ravioli_size-ravioli_cut_size,0,0])
+                        sphere(ravioli_size*.38);
+                    }
+                }
+            }
+            
+               union(){
+                for (i = [0:rows]) {
+                    translate([0,ravioli_size*i,press_height+1])
+                    cube([ravioli_size*2,ravioli_size,press_height*2]);
+                    translate([ravioli_size/2,(ravioli_size/2 ) + ((ravioli_size-1.199)*i), ravioli_size*.5]){
+                        sphere(ravioli_size*.34);
+                        translate([ravioli_size-ravioli_cut_size,0,0])
+                        sphere(ravioli_size*.34);
+                    }
                 }
             }
         }

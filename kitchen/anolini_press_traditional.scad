@@ -12,45 +12,57 @@ $fn=50;
 
 moldSpacing = press_size-1;
 //1 for press only, 2 for mold only, 3+ for both
-parts=1;
+parts=3;
 
 
 if(parts == 2 || parts > 2){
     translate([0,0,25])
-    difference(){
-       union(){
-            for (i = [0:rows]) {
-                translate([-1,-1 + (press_size*i),press_height])
-                color("green")
-                cube([press_size*3,press_size+2,1]);
-                translate([press_size/2,(press_size/2 ) + (moldSpacing*i), press_size*.5]){
-                    sphereSize = press_size* .32;
-                    scale([1,1,1.35])
-                    sphere(sphereSize);
-                    translate([moldSpacing,0,0])
-                    scale([1,1,1.35])
-                    sphere(sphereSize);
-                    translate([(moldSpacing)*2,0,0])
-                    scale([1,1,1.35])
-                    sphere(sphereSize);
-                }
+    union(){
+        for (i = [0:rows]) {
+            translate([-1,-1 + ((press_size-.75)*i),press_height+.2])
+            cube([press_size*3,press_size,.9]);
+            for(k = [0:(2*rows - 3)]){
+                translate([-1,-1 + ((press_size/2-.39)*(i+k)),press_height+1])
+                #cube([press_size*3,1.5,1.8]);
+            }
+                    
+            for(j = [0:6]){
+                translate([-1 +(j*19.21),-1 + ((press_size-.75)*i),press_height+1])
+                #cube([1.5, press_size,1.8]);
             }
         }
-        
+        difference(){
            union(){
-            for (i = [0:rows]) {
-                translate([0,press_size*i,press_height+1])
-                cube([press_size*3,press_size,press_height*2]);
-                translate([press_size/2,(press_size/2 ) + (moldSpacing*i), press_size*.5]){
-                    sphereSize = press_size* .30;
-                    scale([1,1,1.33])
-                    sphere(sphereSize);
-                    translate([moldSpacing,0,0])
-                    scale([1,1,1.33])
-                    sphere(sphereSize);
-                    translate([(moldSpacing)*2,0,0])
-                    scale([1,1,1.33])
-                    sphere(sphereSize);
+                for (i = [0:rows]) {
+                    translate([press_size/2,(press_size/2 ) + (moldSpacing*i), press_size*.5]){
+                        sphereSize = press_size* .32;
+                        scale([1,1,1.35])
+                        sphere(sphereSize);
+                        translate([moldSpacing,0,0])
+                        scale([1,1,1.35])
+                        sphere(sphereSize);
+                        translate([(moldSpacing)*2,0,0])
+                        scale([1,1,1.35])
+                        sphere(sphereSize);
+                    }
+                }
+            }
+            
+               union(){
+                for (i = [0:rows]) {
+                    translate([0,press_size*i,press_height+1])
+                    cube([press_size*3,press_size,press_height*3]);
+                    translate([press_size/2,(press_size/2 ) + (moldSpacing*i), press_size*.5]){
+                        sphereSize = press_size* .30;
+                        scale([1,1,1.3])
+                        sphere(sphereSize);
+                        translate([moldSpacing,0,0])
+                        scale([1,1,1.3])
+                        sphere(sphereSize);
+                        translate([(moldSpacing)*2,0,0])
+                        scale([1,1,1.3])
+                        sphere(sphereSize);
+                    }
                 }
             }
         }
