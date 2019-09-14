@@ -13,14 +13,18 @@ bookcase_cube_width=25.4*9.75;
 bookcase_cube_height=25.4*13.75;    
 */
 
-scale_factor = .30;
+scale_factor = 1;
 
-bookcase_wall_thickness=25.4*.50;
+wiring_conduit_r=6.5* scale_factor;
+light_width=11* scale_factor;
+light_depth=5* scale_factor;
+
+bookcase_wall_thickness=25.4*.60;
 bookcase_depth=25.4*12 * scale_factor;
 bookcase_cube_width=25.4*9.75 * scale_factor;
 bookcase_cube_height=25.4*13.75 * scale_factor;
 
-L2_bookcase_wall_thickness=25.4*.50;
+L2_bookcase_wall_thickness=25.4*.60;
 L2_bookcase_depth=25.4*12 * scale_factor;
 L2_bookcase_cube_width=25.4*12.5 * scale_factor;
 L2_bookcase_cube_height=25.4*12.5 * scale_factor;
@@ -29,12 +33,14 @@ L2_bookcase_cube_height=25.4*12.5 * scale_factor;
 //2 - bottom right
 //3 - Middle 1 Left
 //4 - Middle 1 Right
+//5 - Top 1 Right
+//6 - Top 1 Left
 
 part=4;
 
 middle_offset = -1*(2*(L2_bookcase_cube_width+(2*L2_bookcase_wall_thickness))/2) + bookcase_cube_width+(2*bookcase_wall_thickness);
         
-        
+
 difference(){
     union(){ 
         //bottom left cube 
@@ -50,6 +56,70 @@ difference(){
                 cube([bookcase_cube_width,
                       bookcase_depth,
                       bookcase_cube_height]);
+                
+                t_thickenss_dif = (bookcase_wall_thickness - light_width)/2;
+                color("red")
+                //Left
+                translate([t_thickenss_dif,
+                            -.1,
+                           t_thickenss_dif])
+                cube([light_width,
+                        light_depth+.1,
+                        bookcase_cube_height+(2*(bookcase_wall_thickness-t_thickenss_dif))]);
+
+                //Bottom
+                translate([t_thickenss_dif,
+                            -.1,
+                           t_thickenss_dif])
+                cube([bookcase_cube_width+(2*(bookcase_wall_thickness-t_thickenss_dif)),
+                        light_depth+.1,
+                        light_width]);
+                
+                //Right
+                translate([t_thickenss_dif+bookcase_cube_width+bookcase_wall_thickness,
+                            -.1,
+                           t_thickenss_dif])
+                cube([light_width,
+                        light_depth+.1,
+                        bookcase_cube_height+(2*(bookcase_wall_thickness-t_thickenss_dif))]);
+                        
+                //Top
+                translate([t_thickenss_dif,
+                            -.1,
+                           t_thickenss_dif+bookcase_cube_height+bookcase_wall_thickness])
+                cube([bookcase_cube_width+(2*(bookcase_wall_thickness-t_thickenss_dif)),
+                        light_depth+.1,
+                        light_width]);
+                        
+                 
+                 t2_thickenss_dif=bookcase_wall_thickness-(2*wiring_conduit_r);
+                 //Bottom-Left
+                 translate([wiring_conduit_r+t2_thickenss_dif,
+                            bookcase_depth*1.1,
+                            wiring_conduit_r+t2_thickenss_dif])
+                 rotate([90,0,0])
+                 cylinder(r1=wiring_conduit_r,r2=wiring_conduit_r,h=bookcase_depth*1.2);
+                 
+                  //Bottom-Right
+                 translate([wiring_conduit_r+bookcase_cube_width+bookcase_wall_thickness,
+                            bookcase_depth*1.1,
+                            wiring_conduit_r+t2_thickenss_dif])
+                 rotate([90,0,0])
+                 cylinder(r1=wiring_conduit_r,r2=wiring_conduit_r,h=bookcase_depth*1.2);
+                 
+                  //Top-Left
+                 translate([wiring_conduit_r+t2_thickenss_dif,
+                            bookcase_depth*1.1,
+                            wiring_conduit_r+bookcase_cube_height+bookcase_wall_thickness])
+                 rotate([90,0,0])
+                 cylinder(r1=wiring_conduit_r,r2=wiring_conduit_r,h=bookcase_depth*1.2);
+                 
+                  //Top-Right
+                 translate([wiring_conduit_r+bookcase_cube_width+bookcase_wall_thickness,
+                            bookcase_depth*1.1,
+                            wiring_conduit_r+bookcase_cube_height+bookcase_wall_thickness])
+                 rotate([90,0,0])
+                 cylinder(r1=wiring_conduit_r,r2=wiring_conduit_r,h=bookcase_depth*1.2);
             }
         }
 
@@ -67,6 +137,70 @@ difference(){
                 cube([bookcase_cube_width,
                       bookcase_depth,
                       bookcase_cube_height]);
+                
+                t_thickenss_dif = (bookcase_wall_thickness - light_width)/2;
+                color("red")
+                //Left
+                translate([t_thickenss_dif,
+                            -.1,
+                           t_thickenss_dif])
+                cube([light_width,
+                        light_depth+.1,
+                        bookcase_cube_height+(2*(bookcase_wall_thickness-t_thickenss_dif))]);
+
+                //Bottom
+                translate([t_thickenss_dif,
+                            -.1,
+                           t_thickenss_dif])
+                cube([bookcase_cube_width+(2*(bookcase_wall_thickness-t_thickenss_dif)),
+                        light_depth+.1,
+                        light_width]);
+                
+                //Right
+                translate([t_thickenss_dif+bookcase_cube_width+bookcase_wall_thickness,
+                            -.1,
+                           t_thickenss_dif])
+                cube([light_width,
+                        light_depth+.1,
+                        bookcase_cube_height+(2*(bookcase_wall_thickness-t_thickenss_dif))]);
+                        
+                //Top
+                translate([t_thickenss_dif,
+                            -.1,
+                           t_thickenss_dif+bookcase_cube_height+bookcase_wall_thickness])
+                cube([bookcase_cube_width+(2*(bookcase_wall_thickness-t_thickenss_dif)),
+                        light_depth+.1,
+                        light_width]);
+                        
+                 
+                 t2_thickenss_dif=bookcase_wall_thickness-(2*wiring_conduit_r);
+                 //Bottom-Left
+                 translate([wiring_conduit_r+t2_thickenss_dif,
+                            bookcase_depth*1.1,
+                            wiring_conduit_r+t2_thickenss_dif])
+                 rotate([90,0,0])
+                 cylinder(r1=wiring_conduit_r,r2=wiring_conduit_r,h=bookcase_depth*1.2);
+                 
+                  //Bottom-Right
+                 translate([wiring_conduit_r+bookcase_cube_width+bookcase_wall_thickness,
+                            bookcase_depth*1.1,
+                            wiring_conduit_r+t2_thickenss_dif])
+                 rotate([90,0,0])
+                 cylinder(r1=wiring_conduit_r,r2=wiring_conduit_r,h=bookcase_depth*1.2);
+                 
+                  //Top-Left
+                 translate([wiring_conduit_r+t2_thickenss_dif,
+                            bookcase_depth*1.1,
+                            wiring_conduit_r+bookcase_cube_height+bookcase_wall_thickness])
+                 rotate([90,0,0])
+                 cylinder(r1=wiring_conduit_r,r2=wiring_conduit_r,h=bookcase_depth*1.2);
+                 
+                  //Top-Right
+                 translate([wiring_conduit_r+bookcase_cube_width+bookcase_wall_thickness,
+                            bookcase_depth*1.1,
+                            wiring_conduit_r+bookcase_cube_height+bookcase_wall_thickness])
+                 rotate([90,0,0])
+                 cylinder(r1=wiring_conduit_r,r2=wiring_conduit_r,h=bookcase_depth*1.2);
             }
         }
         
@@ -84,6 +218,71 @@ difference(){
                 cube([L2_bookcase_cube_width,
                       L2_bookcase_depth,
                       L2_bookcase_cube_height]);
+                
+                
+                t_thickenss_dif = (L2_bookcase_wall_thickness - light_width)/2;
+                color("red")
+                //Left
+                translate([t_thickenss_dif,
+                            -.1,
+                           t_thickenss_dif])
+                cube([light_width,
+                        light_depth+.1,
+                        L2_bookcase_cube_height+(2*(L2_bookcase_wall_thickness-t_thickenss_dif))]);
+
+                //Bottom
+                translate([t_thickenss_dif,
+                            -.1,
+                           t_thickenss_dif])
+                cube([L2_bookcase_cube_width+(2*(L2_bookcase_wall_thickness-t_thickenss_dif)),
+                        light_depth+.1,
+                        light_width]);
+                
+                //Right
+                translate([t_thickenss_dif+L2_bookcase_cube_width+L2_bookcase_wall_thickness,
+                            -.1,
+                           t_thickenss_dif])
+                cube([light_width,
+                        light_depth+.1,
+                        L2_bookcase_cube_height+(2*(L2_bookcase_wall_thickness-t_thickenss_dif))]);
+                        
+                //Top
+                translate([t_thickenss_dif,
+                            -.1,
+                           t_thickenss_dif+L2_bookcase_cube_height+L2_bookcase_wall_thickness])
+                cube([L2_bookcase_cube_width+(2*(L2_bookcase_wall_thickness-t_thickenss_dif)),
+                        light_depth+.1,
+                        light_width]);
+                        
+                 
+                 t2_thickenss_dif=L2_bookcase_wall_thickness-(2*wiring_conduit_r);
+                 //Bottom-Left
+                 translate([wiring_conduit_r+t2_thickenss_dif,
+                            L2_bookcase_depth*1.1,
+                            wiring_conduit_r+t2_thickenss_dif])
+                 rotate([90,0,0])
+                 cylinder(r1=wiring_conduit_r,r2=wiring_conduit_r,h=L2_bookcase_depth*1.2);
+                 
+                  //Bottom-Right
+                 translate([wiring_conduit_r+L2_bookcase_cube_width+L2_bookcase_wall_thickness,
+                            L2_bookcase_depth*1.1,
+                            wiring_conduit_r+t2_thickenss_dif])
+                 rotate([90,0,0])
+                 cylinder(r1=wiring_conduit_r,r2=wiring_conduit_r,h=L2_bookcase_depth*1.2);
+                 
+                  //Top-Left
+                 translate([wiring_conduit_r+t2_thickenss_dif,
+                            L2_bookcase_depth*1.1,
+                            wiring_conduit_r+L2_bookcase_cube_height+L2_bookcase_wall_thickness])
+                 rotate([90,0,0])
+                 cylinder(r1=wiring_conduit_r,r2=wiring_conduit_r,h=L2_bookcase_depth*1.2);
+                 
+                  //Top-Right
+                 translate([wiring_conduit_r+L2_bookcase_cube_width+L2_bookcase_wall_thickness,
+                            L2_bookcase_depth*1.1,
+                            wiring_conduit_r+L2_bookcase_cube_height+bookcase_wall_thickness])
+                 rotate([90,0,0])
+                 cylinder(r1=wiring_conduit_r,r2=wiring_conduit_r,h=L2_bookcase_depth*1.2);
             }
         }
         
@@ -101,9 +300,240 @@ difference(){
                 cube([L2_bookcase_cube_width,
                       L2_bookcase_depth,
                       L2_bookcase_cube_height]);
+                
+                
+                t_thickenss_dif = (L2_bookcase_wall_thickness - light_width)/2;
+                color("red")
+                //Left
+                translate([t_thickenss_dif,
+                            -.1,
+                           t_thickenss_dif])
+                cube([light_width,
+                        light_depth+.1,
+                        L2_bookcase_cube_height+(2*(L2_bookcase_wall_thickness-t_thickenss_dif))]);
+
+                //Bottom
+                translate([t_thickenss_dif,
+                            -.1,
+                           t_thickenss_dif])
+                cube([L2_bookcase_cube_width+(2*(L2_bookcase_wall_thickness-t_thickenss_dif)),
+                        light_depth+.1,
+                        light_width]);
+                
+                //Right
+                translate([t_thickenss_dif+L2_bookcase_cube_width+L2_bookcase_wall_thickness,
+                            -.1,
+                           t_thickenss_dif])
+                cube([light_width,
+                        light_depth+.1,
+                        L2_bookcase_cube_height+(2*(L2_bookcase_wall_thickness-t_thickenss_dif))]);
+                        
+                //Top
+                translate([t_thickenss_dif,
+                            -.1,
+                           t_thickenss_dif+L2_bookcase_cube_height+L2_bookcase_wall_thickness])
+                cube([L2_bookcase_cube_width+(2*(L2_bookcase_wall_thickness-t_thickenss_dif)),
+                        light_depth+.1,
+                        light_width]);
+                        
+                 
+                 t2_thickenss_dif=L2_bookcase_wall_thickness-(2*wiring_conduit_r);
+                 //Bottom-Left
+                 translate([wiring_conduit_r+t2_thickenss_dif,
+                            L2_bookcase_depth*1.1,
+                            wiring_conduit_r+t2_thickenss_dif])
+                 rotate([90,0,0])
+                 cylinder(r1=wiring_conduit_r,r2=wiring_conduit_r,h=L2_bookcase_depth*1.2);
+                 
+                  //Bottom-Right
+                 translate([wiring_conduit_r+L2_bookcase_cube_width+L2_bookcase_wall_thickness,
+                            L2_bookcase_depth*1.1,
+                            wiring_conduit_r+t2_thickenss_dif])
+                 rotate([90,0,0])
+                 cylinder(r1=wiring_conduit_r,r2=wiring_conduit_r,h=L2_bookcase_depth*1.2);
+                 
+                  //Top-Left
+                 translate([wiring_conduit_r+t2_thickenss_dif,
+                            L2_bookcase_depth*1.1,
+                            wiring_conduit_r+L2_bookcase_cube_height+L2_bookcase_wall_thickness])
+                 rotate([90,0,0])
+                 cylinder(r1=wiring_conduit_r,r2=wiring_conduit_r,h=L2_bookcase_depth*1.2);
+                 
+                  //Top-Right
+                 translate([wiring_conduit_r+L2_bookcase_cube_width+L2_bookcase_wall_thickness,
+                            L2_bookcase_depth*1.1,
+                            wiring_conduit_r+L2_bookcase_cube_height+bookcase_wall_thickness])
+                 rotate([90,0,0])
+                 cylinder(r1=wiring_conduit_r,r2=wiring_conduit_r,h=L2_bookcase_depth*1.2);
             }
         }
 
+
+        //top right cube 
+        if(part == 5 || part == 0){
+            translate([middle_offset+L2_bookcase_cube_width+(2*L2_bookcase_wall_thickness),0, bookcase_cube_height +(4*bookcase_wall_thickness) + L2_bookcase_cube_height])
+            difference(){
+                color("purple")
+                cube([L2_bookcase_cube_width+(2*L2_bookcase_wall_thickness),
+                      L2_bookcase_depth + L2_bookcase_wall_thickness,
+                      L2_bookcase_cube_height +(2*L2_bookcase_wall_thickness)]);
+                                  
+                translate([L2_bookcase_wall_thickness,-.1,L2_bookcase_wall_thickness])
+                color("white") 
+                cube([L2_bookcase_cube_width,
+                      L2_bookcase_depth,
+                      L2_bookcase_cube_height]);
+                
+                
+                t_thickenss_dif = (L2_bookcase_wall_thickness - light_width)/2;
+                color("red")
+                //Left
+                translate([t_thickenss_dif,
+                            -.1,
+                           t_thickenss_dif])
+                cube([light_width,
+                        light_depth+.1,
+                        L2_bookcase_cube_height+(2*(L2_bookcase_wall_thickness-t_thickenss_dif))]);
+
+                //Bottom
+                translate([t_thickenss_dif,
+                            -.1,
+                           t_thickenss_dif])
+                cube([L2_bookcase_cube_width+(2*(L2_bookcase_wall_thickness-t_thickenss_dif)),
+                        light_depth+.1,
+                        light_width]);
+                
+                //Right
+                translate([t_thickenss_dif+L2_bookcase_cube_width+L2_bookcase_wall_thickness,
+                            -.1,
+                           t_thickenss_dif])
+                cube([light_width,
+                        light_depth+.1,
+                        L2_bookcase_cube_height+(2*(L2_bookcase_wall_thickness-t_thickenss_dif))]);
+                        
+                //Top
+                translate([t_thickenss_dif,
+                            -.1,
+                           t_thickenss_dif+L2_bookcase_cube_height+L2_bookcase_wall_thickness])
+                cube([L2_bookcase_cube_width+(2*(L2_bookcase_wall_thickness-t_thickenss_dif)),
+                        light_depth+.1,
+                        light_width]);
+                        
+                 
+                 t2_thickenss_dif=L2_bookcase_wall_thickness-(2*wiring_conduit_r);
+                 //Bottom-Left
+                 translate([wiring_conduit_r+t2_thickenss_dif,
+                            L2_bookcase_depth*1.1,
+                            wiring_conduit_r+t2_thickenss_dif])
+                 rotate([90,0,0])
+                 cylinder(r1=wiring_conduit_r,r2=wiring_conduit_r,h=L2_bookcase_depth*1.2);
+                 
+                  //Bottom-Right
+                 translate([wiring_conduit_r+L2_bookcase_cube_width+L2_bookcase_wall_thickness,
+                            L2_bookcase_depth*1.1,
+                            wiring_conduit_r+t2_thickenss_dif])
+                 rotate([90,0,0])
+                 cylinder(r1=wiring_conduit_r,r2=wiring_conduit_r,h=L2_bookcase_depth*1.2);
+                 
+                  //Top-Left
+                 translate([wiring_conduit_r+t2_thickenss_dif,
+                            L2_bookcase_depth*1.1,
+                            wiring_conduit_r+L2_bookcase_cube_height+L2_bookcase_wall_thickness])
+                 rotate([90,0,0])
+                 cylinder(r1=wiring_conduit_r,r2=wiring_conduit_r,h=L2_bookcase_depth*1.2);
+                 
+                  //Top-Right
+                 translate([wiring_conduit_r+L2_bookcase_cube_width+L2_bookcase_wall_thickness,
+                            L2_bookcase_depth*1.1,
+                            wiring_conduit_r+L2_bookcase_cube_height+bookcase_wall_thickness])
+                 rotate([90,0,0])
+                 cylinder(r1=wiring_conduit_r,r2=wiring_conduit_r,h=L2_bookcase_depth*1.2);
+            }
+        }
+        
+        
+        //middle left cube 
+        if(part == 6 || part == 0){
+            translate([middle_offset,0, bookcase_cube_height +(4*bookcase_wall_thickness) + L2_bookcase_cube_height])
+            difference(){
+                color("purple")
+                cube([L2_bookcase_cube_width+(2*L2_bookcase_wall_thickness),
+                      L2_bookcase_depth + L2_bookcase_wall_thickness,
+                      L2_bookcase_cube_height +(2*L2_bookcase_wall_thickness)]);
+                                  
+                translate([L2_bookcase_wall_thickness,-.1,L2_bookcase_wall_thickness])
+                color("white") 
+                cube([L2_bookcase_cube_width,
+                      L2_bookcase_depth,
+                      L2_bookcase_cube_height]);
+                
+                
+                t_thickenss_dif = (L2_bookcase_wall_thickness - light_width)/2;
+                color("red")
+                //Left
+                translate([t_thickenss_dif,
+                            -.1,
+                           t_thickenss_dif])
+                cube([light_width,
+                        light_depth+.1,
+                        L2_bookcase_cube_height+(2*(L2_bookcase_wall_thickness-t_thickenss_dif))]);
+
+                //Bottom
+                translate([t_thickenss_dif,
+                            -.1,
+                           t_thickenss_dif])
+                cube([L2_bookcase_cube_width+(2*(L2_bookcase_wall_thickness-t_thickenss_dif)),
+                        light_depth+.1,
+                        light_width]);
+                
+                //Right
+                translate([t_thickenss_dif+L2_bookcase_cube_width+L2_bookcase_wall_thickness,
+                            -.1,
+                           t_thickenss_dif])
+                cube([light_width,
+                        light_depth+.1,
+                        L2_bookcase_cube_height+(2*(L2_bookcase_wall_thickness-t_thickenss_dif))]);
+                        
+                //Top
+                translate([t_thickenss_dif,
+                            -.1,
+                           t_thickenss_dif+L2_bookcase_cube_height+L2_bookcase_wall_thickness])
+                cube([L2_bookcase_cube_width+(2*(L2_bookcase_wall_thickness-t_thickenss_dif)),
+                        light_depth+.1,
+                        light_width]);
+                        
+                 
+                 t2_thickenss_dif=L2_bookcase_wall_thickness-(2*wiring_conduit_r);
+                 //Bottom-Left
+                 translate([wiring_conduit_r+t2_thickenss_dif,
+                            L2_bookcase_depth*1.1,
+                            wiring_conduit_r+t2_thickenss_dif])
+                 rotate([90,0,0])
+                 cylinder(r1=wiring_conduit_r,r2=wiring_conduit_r,h=L2_bookcase_depth*1.2);
+                 
+                  //Bottom-Right
+                 translate([wiring_conduit_r+L2_bookcase_cube_width+L2_bookcase_wall_thickness,
+                            L2_bookcase_depth*1.1,
+                            wiring_conduit_r+t2_thickenss_dif])
+                 rotate([90,0,0])
+                 cylinder(r1=wiring_conduit_r,r2=wiring_conduit_r,h=L2_bookcase_depth*1.2);
+                 
+                  //Top-Left
+                 translate([wiring_conduit_r+t2_thickenss_dif,
+                            L2_bookcase_depth*1.1,
+                            wiring_conduit_r+L2_bookcase_cube_height+L2_bookcase_wall_thickness])
+                 rotate([90,0,0])
+                 cylinder(r1=wiring_conduit_r,r2=wiring_conduit_r,h=L2_bookcase_depth*1.2);
+                 
+                  //Top-Right
+                 translate([wiring_conduit_r+L2_bookcase_cube_width+L2_bookcase_wall_thickness,
+                            L2_bookcase_depth*1.1,
+                            wiring_conduit_r+L2_bookcase_cube_height+bookcase_wall_thickness])
+                 rotate([90,0,0])
+                 cylinder(r1=wiring_conduit_r,r2=wiring_conduit_r,h=L2_bookcase_depth*1.2);
+            }
+        }
+        
     }
     
     //Bottom Left
@@ -148,6 +578,14 @@ difference(){
                    L2_z+L2_bookcase_cube_height + L2_bookcase_wall_thickness,
                    L2_bookcase_cube_width+(2*L2_bookcase_wall_thickness),
                    L2_bookcase_depth + L2_bookcase_wall_thickness);
+                   
+    //Top left
+    L3_z = bookcase_cube_height+(2*bookcase_wall_thickness) + L2_bookcase_cube_height;
+    side_connector(L2_bookcase_cube_width+L2_bookcase_wall_thickness+middle_offset,
+                   0,
+                   L3_z,
+                   L2_bookcase_depth + L2_bookcase_wall_thickness,
+                   L2_bookcase_cube_height +(2*L2_bookcase_wall_thickness));
                    
 }
 

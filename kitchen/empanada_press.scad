@@ -12,15 +12,19 @@ press_height=25.4*.87;
 
 seam_ridge_width=3.55625;
 seam_ridge_depth=3.4;
+disable_outter_cut= 1;
 $fn=100;
 
 difference(){
     union(){
         difference(){
                 difference(){
-                            color("green")
-                            cylinder(r1=dough_radius, r2=dough_radius, h=press_height);
-                            
+                            color("purple")
+                            if(disable_outter_cut){
+                                cylinder(r1=dough_radius, r2=dough_radius, h=press_height-press_cut_height);
+                            } else {
+                                cylinder(r1=dough_radius, r2=dough_radius, h=press_height);
+                            }
                             translate([0,0,-1])
                             cylinder(r1=dough_radius-press_seam_width-press_cut_width, r2=dough_radius-press_seam_width-press_cut_width, h=press_height+2);
                                 
@@ -87,7 +91,7 @@ difference(){
                     }
                      
                     translate([-press_cut_width/2,-dough_radius*.99,0])
-                    cube([press_cut_width,dough_radius*1.98,press_height]);
+                    #cube([press_cut_width,dough_radius*1.98,press_height]);
                     
                     translate([-3,-dough_radius*.99,0])
                     cube([6,dough_radius*1.98,10]);
