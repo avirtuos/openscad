@@ -36,7 +36,7 @@ L2_bookcase_cube_height=25.4*12.5 * scale_factor;
 //5 - Top 1 Right
 //6 - Top 1 Left
 
-part=4;
+part=6;
 
 middle_offset = -1*(2*(L2_bookcase_cube_width+(2*L2_bookcase_wall_thickness))/2) + bookcase_cube_width+(2*bookcase_wall_thickness);
         

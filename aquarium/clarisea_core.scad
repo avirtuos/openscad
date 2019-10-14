@@ -1,10 +1,12 @@
 
 
 inner_thickness=3;
-inner_overlap=30;
+inner_overlap=40;
 inner_x=25.4*6.5+(3*inner_thickness);
 inner_y=25.4*7.5;
 inner_z=25.4*8;
+guard_z=25.4*2;
+
 
 
 
@@ -39,18 +41,15 @@ module hexgrid(box, holediameter, wallthickness) {
 
 difference(){
 union(){
-    
+    translate([0,-5-inner_thickness/2,inner_z]){
+        difference(){
+            color("yellow")
+            cube([inner_x,inner_y+15,inner_thickness]);
+            translate([-30,3.5+inner_thickness/2,-1])
+            cube([inner_x*2,inner_y-inner_thickness+2,inner_thickness+2]);
+        }
+    }
 translate([0,9,12])
-rotate([0,90,0])
-cylinder(r1=5, r2=5, h=inner_x, $fn=100);
-    
-    
-translate([0,9,inner_z - 12])
-rotate([0,90,0])
-cylinder(r1=5, r2=5, h=inner_x, $fn=100);
-    
-    
-translate([0,5 + inner_x,inner_z-12])
 rotate([0,90,0])
 cylinder(r1=5, r2=5, h=inner_x, $fn=100);
     
@@ -61,6 +60,41 @@ cylinder(r1=5, r2=5, h=inner_x, $fn=100);
     
 
 
+    translate([0,0,inner_z-3])
+    rotate([20,0,0])
+    color("orange")
+    difference(){
+        cube([inner_x,3*inner_thickness,guard_z]);
+        translate([inner_thickness/2, inner_thickness/2,-.1]){
+            cube([inner_x-inner_thickness,2*inner_thickness,guard_z+.2]);
+        }
+    }
+
+
+    translate([0,inner_y-11.5,inner_z])
+    rotate([-20,0,0])
+    color("red")
+    difference(){
+        cube([inner_x,3*inner_thickness,guard_z]);
+        translate([inner_thickness/2, inner_thickness/2,-.1]){
+            cube([inner_x-inner_thickness,2*inner_thickness,guard_z+.2]);
+        }
+    }
+    
+    //Sleds
+    translate([0,7,inner_z])
+    rotate([-20,0,0])
+    cube([inner_x,inner_y/4,inner_thickness]);
+
+    translate([0,inner_y*.71,inner_z-16])
+    rotate([20,0,0])
+    cube([inner_x,inner_y/4,inner_thickness]);
+
+
+    translate([0,30,inner_z-3])
+    rotate([0,20,0])
+    cube([inner_x/4,inner_y-60,inner_thickness]);
+        
 //Side 1
 rotate([90,0,0]){
     union(){
@@ -96,9 +130,9 @@ rotate([90,0,0]){
 
 //Bottom
     union(){
-        translate([2,0,0]){
+        translate([8,0,0]){
             color("red")
-            hexgrid([inner_x-12, inner_y-12, inner_thickness], 10, inner_thickness);
+            hexgrid([inner_x-20, inner_y-20, inner_thickness], 10, inner_thickness);
         }
         color("green")
         difference(){
@@ -118,6 +152,6 @@ cube([inner_thickness, inner_y, inner_z]);
 //cube([inner_thickness, inner_y, inner_z]);
 }
 
-//translate([inner_x/2,-10,-10])
-//cube([inner_x, inner_y+20, inner_z+20]);
+//translate([inner_x/2,-100,-10])
+//cube([inner_x, inner_y+200, inner_z+200]);
 }

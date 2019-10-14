@@ -1,4 +1,4 @@
-inner_diameter = 10.6;
+inner_diameter = 10.8;
 outter_diameter= (1.2*2)+inner_diameter;
 height=165;
 
