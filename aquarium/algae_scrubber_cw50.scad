@@ -26,10 +26,10 @@ translate([-15,-15,0]){
         union(){
             translate([15,15,30]){
                 translate([0,0,-5])
-                cylinder(h=41, r1=21/2-.5, r2=21/2-.5, $fn=_fn);
+                cylinder(h=41, r1=21/2-1.2, r2=21/2-1.2, $fn=_fn);
 
                 translate([0,35.7+21,-5])
-                cylinder(h=41, r1=21/2-.5, r2=21/2-.5, $fn=_fn);
+                cylinder(h=41, r1=21/2-1.2, r2=21/2-1.2, $fn=_fn);
             }
             
             translate([1,1,1]){
@@ -39,14 +39,22 @@ translate([-15,-15,0]){
             
             translate([0,100,0]){
                 rotate([0,0,45]){
-                        cube([30,100,30]);
-                        translate([1,1,1]){
-                            color("blue")
-                            cube([28,111,28]);
-                        }
+                    translate([1,1,1]){
+                        color("blue")
+                        cube([28,111,28]);
+                    }
                     
                 }
             }
         }
     }
+    
+    
+            color("yellow")
+            translate([15,0,0])
+            cube([3,110,30]);
+            color("yellow")
+            translate([10,110,00])
+            rotate([0,0,45])
+            cube([3,100,30]);
 }
