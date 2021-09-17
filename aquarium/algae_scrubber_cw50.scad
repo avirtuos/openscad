@@ -16,8 +16,8 @@ translate([-15,-15,0]){
                 %cube([5,35.7,5]);
             }
 
-            cube([30,122,30]);
-            translate([0,100,0])
+            cube([30,200,30]);
+            translate([0,180,0])
             rotate([0,0,45])
             cube([30,100,30]);
         }
@@ -37,7 +37,7 @@ translate([-15,-15,0]){
                 cube([28,120,28]);
             }
             
-            translate([0,100,0]){
+            translate([0,180,0]){
                 rotate([0,0,45]){
                     translate([1,1,1]){
                         color("blue")
@@ -52,9 +52,9 @@ translate([-15,-15,0]){
     
             color("yellow")
             translate([15,0,0])
-            cube([3,110,30]);
+            cube([3,180,30]);
             color("yellow")
-            translate([10,110,00])
+            translate([10,190,00])
             rotate([0,0,45])
             cube([3,100,30]);
 }
