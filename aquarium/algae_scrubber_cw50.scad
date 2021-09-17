@@ -34,7 +34,7 @@ translate([-15,-15,0]){
             
             translate([1,1,1]){
                 color("red")
-                cube([28,120,28]);
+                cube([28,198,28]);
             }
             
             translate([0,180,0]){
