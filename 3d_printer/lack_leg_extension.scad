@@ -1,8 +1,8 @@
-ext_z=25.4*4;
-ext_overlap = ext_z * .5;
+ext_z=25.4*4.9;
+ext_overlap = 25.4*1.5;
 ext_tbl_z = 25.4;
-leg_y=51;
-leg_x=51;
+leg_y=52;
+leg_x=52;
 wall = 7; 
 
 screw_r = 3.9/2;
@@ -27,11 +27,11 @@ difference(){
     translate([42,-4.6,ext_tbl_z*1.6])
     screw();
 
-    translate([12,-4.6,ext_z*1.8])
+    translate([12,-4.6,ext_z*1.6])
     screw();
-    translate([27,-4.6,ext_z*1.8])
+    translate([27,-4.6,ext_z*1.6])
     screw();
-    translate([42,-4.6,ext_z*1.8])
+    translate([42,-4.6,ext_z*1.6])
     screw();
 
     translate([-4.6,12,ext_tbl_z*1.4])
@@ -41,11 +41,11 @@ difference(){
     translate([-4.6,42,ext_tbl_z*1.4])
     screw(0);
 
-    translate([-4.6,12,ext_z*1.7])
+    translate([-4.6,12,ext_z*1.52])
     screw(0);
-    translate([-4.6,27,ext_z*1.7])
+    translate([-4.6,27,ext_z*1.52])
     screw(0);
-    translate([-4.6,42,ext_z*1.7])
+    translate([-4.6,42,ext_z*1.52])
     screw(0);
 }
 
